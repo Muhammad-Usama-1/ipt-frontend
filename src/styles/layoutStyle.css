@@ -1,0 +1,40 @@
+.appbar--header {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.appbar--header p {
+  font-size: 2rem;
+}
+.appbar--header img {
+  width: 50px;
+}
+
+.container {
+  position: relative;
+  display: grid !important;
+  margin-top: 62px;
+  grid-template-columns: 280px 1fr 280px;
+  /* background-color: var(--body-color); */
+  background-color: var(--primary-color-light);
+  /* background-color: paleturquoise; */
+}
+@media screen and (max-width: 1500px) {
+  .container {
+    grid-template-columns: 120px 1fr 120px;
+  }
+}
+@media screen and (max-width: 990px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+}
+.sidebar-fixed {
+  position: fixed;
+  z-index: 2;
+}
+.friendsSidebar {
+  position: fixed;
+  z-index: 2;
+  right: 0px;
+}

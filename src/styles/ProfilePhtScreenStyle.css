@@ -1,0 +1,26 @@
+.content-media {
+  margin: 10px;
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+@media screen and (max-width: 680px) {
+  .content-media {
+    padding: 0px;
+    margin: 2px;
+  }
+}
+.profile-photos-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 10px;
+  /* margin: 0 auto; */
+}
+
+.container-detail {
+  width: 100%;
+  /* margin: 10px; */
+}
+.container--img {
+  max-width: 100%;
+}

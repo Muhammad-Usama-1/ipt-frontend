@@ -1,0 +1,103 @@
+.content-group {
+  margin: 10px;
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+@media screen and (max-width: 680px) {
+  .content-group {
+    padding: 0px;
+    margin: 2px;
+  }
+}
+.group-card {
+  overflow: hidden !important;
+  text-align: center;
+  border-radius: 10px;
+  background-color: var(--dark-white-color);
+  box-shadow: var(--box-shadow);
+}
+.groups-cards {
+  display: grid;
+  padding: 10px;
+  /* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+  gap: 10px;
+}
+.group-card--header {
+  position: relative;
+}
+
+.group-card--header--image {
+  max-width: 100%;
+}
+.group-card-abs-div {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.group-card--header--roundphoto {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 50px;
+}
+.group-card--titles {
+  margin-top: 20px;
+}
+.group-card--titles p:first-child {
+  font-size: 20px;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+.group-card-details {
+  margin-top: 10px;
+  margin-bottom: 50px;
+  margin-top: 50px;
+
+  display: flex;
+  justify-content: space-evenly;
+}
+.group-card-details p:last-child {
+  /* font-size: 30px; */
+  font-family: "Poppins";
+  font-weight: bold;
+}
+
+.group-card-btn {
+  padding: 10px;
+  background-color: var(--primary-color);
+  color: var(--dark-white-color);
+  margin-top: 50px;
+  width: 80%;
+  border: none;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+/* ------------------ */
+.round-photos {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.round-photos:first-child {
+  margin-left: 0px;
+}
+
+.photo-line-round {
+  z-index: 0;
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  /* object-fit: contain; */
+  margin-left: -15px;
+  border-right: 2px solid var(--primary-color);
+}
+.photo-line-round:hover {
+  z-index: 1;
+  /* position: static; */
+}

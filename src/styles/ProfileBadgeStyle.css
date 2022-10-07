@@ -1,0 +1,33 @@
+.badge-cards {
+  display: grid;
+  padding: 10px;
+  /* background-color: palevioletred; */
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  /* background-color: var(--dark-white-color); */
+  background-color: var(--primary-color-light);
+
+  gap: 10px;
+}
+
+.badge-card {
+  margin-top: 40px;
+  border-radius: 10px;
+  padding: 10px;
+  position: relative;
+  background-color: var(--dark-white-color);
+  box-shadow: var(--box-shadow);
+}
+.badge-card--img {
+  position: absolute;
+  top: -40px;
+  /* top: -50%; */
+  left: 10px;
+}
+.badge-card > .badge-card--detail {
+  /* margin-bottom: 10px; */
+  margin-top: 60px;
+  padding: 10px;
+}
+.badge-card > .badge-card--detail > p {
+  margin-bottom: 10px;
+}

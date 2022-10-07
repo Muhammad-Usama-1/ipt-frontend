@@ -1,0 +1,62 @@
+.friend-request-container {
+  background-color: var(--dark-white-color);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-shadow: var(--box-shadow);
+  padding: 10px;
+}
+
+.friend-request-container .friend-reqest-card {
+  border-top: 1px solid #f6f6f6;
+}
+@media screen and (max-width: 450px) {
+  .friend-reqest-card {
+    flex-direction: column;
+    padding: 0.1rem;
+
+    align-self: flex-start;
+  }
+  .reqest-action--btns {
+    margin: 0 !important;
+  }
+}
+.friend-reqest-card {
+  display: flex;
+  align-items: center;
+  padding: 0.2rem;
+  margin-bottom: 0.5rem;
+}
+.reqest-action--btns {
+  margin-left: auto;
+}
+.secondary-btn {
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--text-color-dark);
+  outline: none;
+  color: var(--dark-white-color);
+  background-color: var(--text-color-dark);
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  border-radius: 0.2rem;
+}
+.primary-btn {
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--primary-color);
+  outline: none;
+  color: var(--dark-white-color);
+  background-color: var(--primary-color);
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  border-radius: 0.2rem;
+}
+.subtitle {
+  font-size: 1.6rem;
+  margin-top: 1rem;
+
+  margin-bottom: 1rem;
+}

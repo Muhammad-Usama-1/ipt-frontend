@@ -1,0 +1,28 @@
+.content-friendprofile {
+  margin: 10px;
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+@media screen and (max-width: 680px) {
+  .content-friendprofile {
+    padding: 0px;
+    margin: 2px;
+  }
+}
+.timeline-box {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 10px;
+}
+
+@media screen and (max-width: 980px) {
+  .timeline-box {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content 1fr;
+  }
+  .event-box {
+    margin-right: 0px !important;
+  }
+}

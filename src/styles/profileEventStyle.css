@@ -1,0 +1,70 @@
+.events-cards {
+  display: grid;
+  padding: 10px;
+  /* background-color: palevioletred; */
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+  gap: 10px;
+}
+.event-card {
+  overflow: hidden;
+  border-radius: 10px;
+  padding: 0px;
+}
+.event-card--details {
+  margin-top: 40px;
+  /* display: flex; */
+  /* align-items: center; */
+  align-items: flex-start;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 50px;
+}
+
+.event-card--img > img {
+  max-width: 100%;
+}
+
+.event-card--title {
+  font-weight: 200;
+  font-family: "Poppins";
+  font-size: 18px;
+  color: var(--primary-color);
+}
+.event-card-info {
+  display: flex;
+  align-items: center;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+.event-card-info p:first-of-type {
+  flex: 0.2;
+}
+.event-card-info p:last-of-type {
+  flex: 1;
+}
+/* ---------------------------------- */
+
+.round-photos {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.round-photos:first-child {
+  margin-left: 0px;
+}
+
+.photo-line-round {
+  z-index: 0;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  /* object-fit: contain; */
+  margin-left: -15px;
+  border-right: 2px solid var(--primary-color);
+}
+.photo-line-round:hover {
+  z-index: 1;
+  /* position: static; */
+}
