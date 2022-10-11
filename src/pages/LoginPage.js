@@ -1,14 +1,44 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 import "../styles/AuthScreensStyle.css";
+import { client } from "../api/client";
+import UserContext from "../context/userContext";
+
 function LoginScreen() {
+  const { setUser, user } = useContext(UserContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
-  const doLogin = () => {
-    navigate("/feed");
+  useEffect(() => {
+    // navigate("/feed");
+    console.log(user);
+    // if (user) navigate("/feed");
+    // if (user) return navigate("/feed");
+  }, [0]);
+
+  const doLogin = async (e) => {
+    try {
+      e.preventDefault();
+      const { data } = await client.post("/users/login", { email, password });
+      console.log(data);
+      localStorage.setItem("token", data.token);
+      setUser(data.data.user);
+      navigate("/feed");
+    } catch ({ response }) {
+      if (response && response.status >= 400 && response.status < 500) {
+        console.log(response.data.message);
+        toast.error(response.data.message);
+      }
+    }
   };
   return (
+    // user ? (
+    // <Navigate to="/feed" />
+    // ) : (
     <section className="sigin-page">
       <div className="container-inside">
         <div id="circle-small"></div>
@@ -67,7 +97,8 @@ function LoginScreen() {
                 name="email"
                 id="email"
                 placeholder="Enter Email"
-                value={"user@usamaapp.com"}
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
               />
             </div>
             <div className="input-box">
@@ -82,7 +113,9 @@ function LoginScreen() {
                 name="password"
                 id="password"
                 placeholder="Password"
-                value={"pass1234"}
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                // value={"pass1234"}
               />
             </div>
             <div className="cta-box">
