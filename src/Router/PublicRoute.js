@@ -5,14 +5,14 @@ import UserContext from "../context/userContext";
 // import { client } from "../api/client";
 
 const PublicRoute = ({ children }) => {
-  const navigator = useNavigate();
+  const navigate = useNavigate();
   const { setUser, user } = useContext(UserContext);
 
   // const [user, setUser] = useState("aaa");
   const getUser = async () => {
     const token = localStorage.getItem("token");
     console.log("Here is there..", token);
-    if (token) navigator("/feed");
+    if (token) navigate("/feed");
     //   console.log(data);
     // } catch (error) {
     //   console.log(error);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -32,21 +32,18 @@ import PublicRoute from "./Router/PublicRoute";
 function App() {
   const [user, setUser] = useState("");
 
+  // const navigate = useNavigate();
+
   const getUser = async () => {
     try {
-      // setLoading(true);
-      // const { data } = await client.get("/users/isLoggedIn");
-      // console.log(token);
-      // if (token)
-      setUser({ name: "Usama" });
-      console.log(user);
+      // Get Token from Localstorage
+      // if there is token get my profile detais and set it to user
     } catch (error) {
-      // setLoading(false);
       console.log(error);
     }
   };
   useEffect(() => {
-    getUser();
+    // getUser();
   }, [0]);
 
   return (
@@ -54,25 +51,9 @@ function App() {
       <BrowserRouter>
         <ToastContainer />
         <Routes>
-          <Route
-            path="/"
-            element={
-              <PublicRoute>
-                <LoginPage />
-              </PublicRoute>
-            }
-          />
+          <Route path="/" element={<FeedPage />} />
           <Route path="signup" element={<SignupPage />} />
-          {/* <Route path="feed" element={<FeedPage />} /> */}
-          <Route
-            path="feed"
-            element={
-              <PublicRoute>
-                <FeedPage />
-              </PublicRoute>
-            }
-          />
-
+          <Route path="feed" element={<FeedPage />} />
           <Route path="friend-request" element={<FriendRequestPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="profile-edit" element={<ProfileEditPage />} />
@@ -94,3 +75,4 @@ function App() {
 }
 
 export default App;
+// Create Post and show in to my profile

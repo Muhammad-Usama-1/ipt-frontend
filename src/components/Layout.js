@@ -1,9 +1,11 @@
 import React from "react";
 import ButtonAppBar from "./AppBar";
+import CreatePostModal from "./CreatePostModal";
 import FreindsSidebar from "./FreindsSidebar";
 import Sidebar from "./Sidebar";
 
 function Layout({ children }) {
+  const openCreatePostModal = () => {};
   const sidebar = React.useRef(null);
   const fsidebar = React.useRef(null);
   return (
@@ -20,7 +22,8 @@ function Layout({ children }) {
           <FreindsSidebar fsidebar={fsidebar} />
         </div>
         {/* acaca */}
-        <button className="big-post-btn"> I am button </button>
+        {/* <button onClick={openCreatePostModal} className="big-post-btn"> I am button </button> */}
+        <CreatePostModal />
       </main>
     </>
   );
