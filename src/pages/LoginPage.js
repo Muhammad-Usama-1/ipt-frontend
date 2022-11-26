@@ -26,7 +26,8 @@ function LoginScreen() {
       const { data } = await client.post("/users/login", { email, password });
       console.log(data);
       localStorage.setItem("token", data.token);
-      setUser(data.data.user);
+      setUser(data.data);
+      // setUser(...user, data.data?.posts);
       navigate("/feed");
     } catch ({ response }) {
       if (response && response.status >= 400 && response.status < 500) {

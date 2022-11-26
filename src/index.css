@@ -51,3 +51,12 @@ body {
   background-color: var(--primary-color);
   color: #fff;
 }
+.big-post-btn {
+  background-color: #469AD9;
+  z-index: 10000;
+  border: 100px solid gray;
+  position: fixed;
+  bottom: 10px;
+  right: 0;
+
+}

@@ -19,6 +19,8 @@ function Layout({ children }) {
         <div className="friendsSidebar">
           <FreindsSidebar fsidebar={fsidebar} />
         </div>
+        {/* acaca */}
+        <button className="big-post-btn"> I am button </button>
       </main>
     </>
   );
