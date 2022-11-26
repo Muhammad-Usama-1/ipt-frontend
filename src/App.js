@@ -63,7 +63,16 @@ function App() {
             }
           />
           <Route path="signup" element={<SignupPage />} />
-          <Route path="feed" element={<FeedPage />} />
+          {/* <Route path="feed" element={<FeedPage />} /> */}
+          <Route
+            path="feed"
+            element={
+              <PublicRoute>
+                <FeedPage />
+              </PublicRoute>
+            }
+          />
+
           <Route path="friend-request" element={<FriendRequestPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="profile-edit" element={<ProfileEditPage />} />
@@ -75,6 +84,8 @@ function App() {
           <Route path="friends" element={<FriendListPage />} />
           <Route path="friendprofile" element={<FriendProfilePage />} />
           <Route path="group" element={<GroupPage />} />
+          <Route path="login" element={<LoginPage />} />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
