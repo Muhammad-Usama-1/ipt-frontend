@@ -76,3 +76,4 @@ function App() {
 
 export default App;
 // Create Post and show in to my profile
+// Create a signup functionality, edit profile function

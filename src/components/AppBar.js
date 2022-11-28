@@ -17,7 +17,6 @@ import UserContext from "../context/userContext";
 
 export default function ButtonAppBar({ sidebar }) {
   const { setUser, user } = React.useContext(UserContext);
-
   const [open, setOpen] = React.useState(false);
   const matches1300 = useMediaQuery("(min-width:1300px)");
   const matches990 = useMediaQuery("(min-width:990px)");
@@ -67,7 +66,7 @@ export default function ButtonAppBar({ sidebar }) {
                 style={{ marginLeft: 10, color: "#00b4cc" }}
               />
               <HomeOutlinedIcon style={{ marginLeft: 10, color: "#00b4cc" }} />
-              <UserCard title={`${user.name}`} subTitle={false} />
+              <UserCard title={`${user?.name}`} subTitle={false} />
             </div>
           ) : (
             <LibraryBooksIcon

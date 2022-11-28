@@ -12,7 +12,9 @@ client.interceptors.response.use(null, (error) => {
     error.response.status >= 400 &&
     error.response.status < 500;
   if (!expecteError) {
-    console.log("An unexpected error occured");
+    console.log(
+      "An unexpected error occured, maybe see response in networking in dev mode"
+    );
     toast.error("An unexpected error occured");
   }
   return Promise.reject(error);

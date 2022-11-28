@@ -1,13 +1,45 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { client } from "../api/client";
+import UserContext from "../context/userContext";
 // import ".";
 import "../styles/AuthScreensStyle.css";
 // import "../styles/";
 
 function SignupScreen() {
+  const { setUser, user } = useContext(UserContext);
+  // Body data of registration
+  const [fullName, setFullname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
-  const doLogin = () => {
-    navigate("/feed");
+  // const doLogin = () => {
+  //   navigate("/feed");
+  // };
+  const doRegister = async (e) => {
+    try {
+      e.preventDefault();
+      const { data } = await client.post("/users/sign-up", {
+        name: fullName,
+        email,
+        password,
+        passwordConfirm: "pass1234",
+      });
+      console.log(email, fullName, password);
+      console.log(data);
+      localStorage.setItem("token", data.token);
+      setUser(data.data.user);
+      console.log(user);
+      // setUser(...user, data.data?.posts);
+      navigate("/feed");
+    } catch ({ response }) {
+      if (response && response.status >= 400 && response.status < 500) {
+        console.log(response.data.message);
+        toast.error(response.data.message);
+      }
+    }
   };
   return (
     <section className="sigin-page">
@@ -68,6 +100,8 @@ function SignupScreen() {
                 name="name"
                 id="name"
                 placeholder="Enter name"
+                onChange={(e) => setFullname(e.target.value)}
+                value={fullName}
               />
             </div>
             <div className="input-box">
@@ -77,7 +111,9 @@ function SignupScreen() {
                 name="email"
                 id="email"
                 placeholder="Enter Email"
-                value={"user@usamaapp.com"}
+                // value={"user@usamaapp.com"}
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
               />
             </div>
             <div className="input-box">
@@ -93,7 +129,8 @@ function SignupScreen() {
                 name="password"
                 id="password"
                 placeholder="Password"
-                value={"pass1234"}
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
               />
             </div>
             <div className="cta-box">
@@ -102,7 +139,7 @@ function SignupScreen() {
                 I accept
                 <a href="/">terms and conditions</a>
               </label>
-              <button onClick={doLogin} className="signin-btn">
+              <button onClick={doRegister} className="signin-btn">
                 Sign Up
               </button>
             </div>
