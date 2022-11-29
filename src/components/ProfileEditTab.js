@@ -1,7 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { client } from "../api/client";
+import UserContext from "../context/userContext";
 import "../styles/TabStyle.css";
 
 function ProfileEditTab() {
+  const { setUser, user } = useContext(UserContext);
+
+  const navigate = useNavigate();
+
   const [toggle, setToggle] = useState(1);
   const [inputs, setInputs] = useState({
     firstname: "",
@@ -9,13 +17,33 @@ function ProfileEditTab() {
     username: "",
     address: "",
   });
-  const handleChange = (event) => {
+  const handleChange = async (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setInputs((values) => ({ ...values, [name]: value }));
   };
-  const handleSubmit = () => {
-    console.log(inputs);
+  const handleSubmit = async (e) => {
+    console.log("Handiling user update....");
+    try {
+      e.preventDefault();
+      // Call API
+      const { data } = await client.patch("/users/updateMe", {
+        name: `${inputs.firstname} + ${inputs.lastname} `,
+      });
+      console.log(data);
+      localStorage.setItem("token", data.token);
+      // Update User in context
+      // setUser(data.data);
+
+      // Change page in to Feed screen
+      navigate("/feed");
+    } catch ({ response }) {
+      // Catch unwanted 400 error
+      if (response && response.status >= 400 && response.status < 500) {
+        console.log(response.data.message);
+        toast.error(response.data.message);
+      }
+    }
   };
   return (
     <div className="content-media">
