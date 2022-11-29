@@ -16,18 +16,25 @@ function ProfileEditTab() {
     lastname: "",
     username: "",
     address: "",
+    age: "",
+    gender: "",
+    dob: "",
+    maritialstatus: "",
   });
   const handleChange = async (event) => {
     const name = event.target.name;
     const value = event.target.value;
+    console.log(name, value);
     setInputs((values) => ({ ...values, [name]: value }));
+    console.log(inputs);
   };
   const handleSubmit = async (e) => {
-    console.log("Handiling user update....");
+    console.log("Handiling user update....", inputs);
     try {
       e.preventDefault();
       // Call API
       const { data } = await client.patch("/users/updateMe", {
+        ...inputs,
         name: `${inputs.firstname} + ${inputs.lastname} `,
       });
       console.log(data);
@@ -36,7 +43,7 @@ function ProfileEditTab() {
       // setUser(data.data);
 
       // Change page in to Feed screen
-      navigate("/feed");
+      // navigate("/feed");
     } catch ({ response }) {
       // Catch unwanted 400 error
       if (response && response.status >= 400 && response.status < 500) {
@@ -130,7 +137,8 @@ function ProfileEditTab() {
                     onChange={handleChange}
                     type="radio"
                     name="gender"
-                    value="Male"
+                    value={"male"}
+                    va
                   />
                   <label htmlFor="male">Male</label>
                   <input
@@ -138,14 +146,20 @@ function ProfileEditTab() {
                     onChange={handleChange}
                     type="radio"
                     name="gender"
-                    value="Female"
+                    value="female"
+                    // value={inputs.gender}
                   />
                   <label htmlFor="female">Female</label>
                 </div>
               </div>
               <div className="app-input">
                 <label htmlFor="dob">Date of Birth:</label>
-                <input name="dob" type="date" onChange={handleChange} />
+                <input
+                  name="dob"
+                  type="date"
+                  onChange={handleChange}
+                  value={inputs.dob}
+                />
               </div>
               <div className="app-input">
                 <label htmlFor="marital-status">Marital Status</label>
@@ -167,12 +181,14 @@ function ProfileEditTab() {
                 <label htmlFor="age">Age:</label>
                 <select
                   defaultValue={63}
+                  value={inputs.age}
                   onChange={handleChange}
                   name="age"
                   id="age"
                 >
                   <option value={63}>63</option>
-                  <option value="">42-11</option>
+                  <option value={42}>42</option>
+                  <option value={100}>100</option>
                 </select>
               </div>
 
