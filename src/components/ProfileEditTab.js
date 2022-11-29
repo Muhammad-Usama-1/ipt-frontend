@@ -11,6 +11,18 @@ function ProfileEditTab() {
   const navigate = useNavigate();
 
   const [toggle, setToggle] = useState(1);
+  const [passInputs, setPassInputs] = useState({
+    passwordCurrent: "",
+    password: "",
+    passwordConfirm: "",
+  });
+  const changePasswordFeild = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    // console.log(name, value);
+    setPassInputs((values) => ({ ...values, [name]: value }));
+    // console.log(inputs);
+  };
   const [inputs, setInputs] = useState({
     firstname: "",
     lastname: "",
@@ -28,6 +40,32 @@ function ProfileEditTab() {
     setInputs((values) => ({ ...values, [name]: value }));
     console.log(inputs);
   };
+  const handleChangePassword = async (e) => {
+    console.log("Password changing.....", passInputs);
+    try {
+      e.preventDefault();
+      const { data } = await client.patch(
+        "/users/updateMyPassword",
+        passInputs
+      );
+
+      console.log(data.token);
+      localStorage.setItem("token", data.token);
+
+      // localStorage.clear();
+      // navigate("/login");
+
+      // console.log(data.token);
+
+      // setUser(data.data.user);
+      // console.log(user);
+    } catch ({ response }) {
+      if (response && response.status >= 400 && response.status < 500) {
+        console.log(response.data.message);
+        toast.error(response.data.message);
+      }
+    }
+  };
   const handleSubmit = async (e) => {
     console.log("Handiling user update....", inputs);
     try {
@@ -37,8 +75,9 @@ function ProfileEditTab() {
         ...inputs,
         name: `${inputs.firstname} + ${inputs.lastname} `,
       });
-      console.log(data);
+      console.log(localStorage.getItem("token"));
       localStorage.setItem("token", data.token);
+      console.log(localStorage.getItem("token"));
       // Update User in context
       // setUser(data.data);
 
@@ -216,21 +255,38 @@ function ProfileEditTab() {
             <div className="profile-edit--form">
               <div className="app-input-full">
                 <label htmlFor="password">Current Password:</label>
-                <input type="password" name="passowrd" />
+                <input
+                  value={passInputs.passwordCurrent}
+                  onChange={changePasswordFeild}
+                  type="password"
+                  name="passwordCurrent"
+                />
               </div>
               <div className="app-input-full">
                 <label htmlFor="newpassword">New Password:</label>
-                <input type="password" name="newpassowrd" />
+                <input
+                  value={passInputs.password}
+                  onChange={changePasswordFeild}
+                  type="password"
+                  name="password"
+                />
               </div>
               <div className="app-input-full">
                 <label htmlFor="confirmpassword">Password Confirm:</label>
-                <input type="password" name="confirmpassword" />
+                <input
+                  value={passInputs.passwordConfirm}
+                  onChange={changePasswordFeild}
+                  type="password"
+                  name="passwordConfirm"
+                />
               </div>
 
               {/* --------------------------- */}
 
               <div className="edit-form--btns">
-                <button className="primary-btn ">Submit</button>
+                <button onClick={handleChangePassword} className="primary-btn ">
+                  Submit
+                </button>
                 <button className="primary-btn red-btn">Cancel</button>
               </div>
             </div>
