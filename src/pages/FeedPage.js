@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useMediaQuery } from "@mui/material";
 
 import data from "../assets/posts.json";
@@ -8,8 +8,24 @@ import VerticalContent from "../components/VerticalContent";
 import PublicRoute from "../Router/PublicRoute";
 import ProtectedRoute from "../Router/ProtectedRoute";
 import UserContext from "../context/userContext";
+import { client } from "../api/client";
 
 function FeedScreen() {
+  const [feeds, setFeeds] = useState("");
+
+  const getFeeds = async () => {
+    try {
+      const { data } = await client.get("/posts/feeds");
+      console.log(data);
+      // Get Token from Localstorage
+      // if there is token get my profile detais and set it to user
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getFeeds();
+  }, [0]);
   const { setUser, user } = useContext(UserContext);
   console.log("---------->", user);
   const matches990 = useMediaQuery("(min-width:990px)");
