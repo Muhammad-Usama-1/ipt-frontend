@@ -4,6 +4,9 @@ import { toast } from "react-toastify";
 const client = axios.create({
   withCredentials: true,
   baseURL: "http://localhost:3002/api/v1",
+
+  headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+
   //   baseURL: "https://stormy-dusk-68006.herokuapp.com/api/v1",
 });
 client.interceptors.response.use(null, (error) => {
