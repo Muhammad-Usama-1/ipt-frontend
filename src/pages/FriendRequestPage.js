@@ -1,9 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import UserCard from "../components/cards/UserCard";
 import "../styles/FriendRequestStyle.css";
+import { client } from "../api/client";
+import { toast } from "react-toastify";
 
 function FriendRequestScreen() {
+  const [friends, setFriends] = useState([]);
+  const getUserList = async () => {
+    try {
+      const { data } = await client.get("/users");
+      console.log(data.data.data);
+      setFriends(data.data.data);
+      // localStorage.setItem("token", data.token);
+      // setUser(data.data);
+      // setUser(...user, data.data?.posts);
+      // navigate("/feed");
+    } catch ({ response }) {
+      if (response && response.status >= 400 && response.status < 500) {
+        console.log(response.data.message);
+        toast.error(response.data.message);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getUserList();
+  }, [0]);
   return (
     <Layout>
       <div className="content-media">
@@ -45,6 +68,15 @@ function FriendRequestScreen() {
 
         <div className="friend-request-container">
           <p className="poppins subtitle">People You may know</p>
+          {friends.map((el) => (
+            <div id={el._id} className="friend-reqest-card">
+              <UserCard title={el?.name} subTitle="50 Friends" />
+              <div className="reqest-action--btns">
+                <button className="primary-btn">Add friend</button>
+                <button className="secondary-btn">Remove</button>
+              </div>
+            </div>
+          ))}
           <div className="friend-reqest-card">
             <UserCard title="Zohaib Khan" subTitle="50 Friends" />
             <div className="reqest-action--btns">
