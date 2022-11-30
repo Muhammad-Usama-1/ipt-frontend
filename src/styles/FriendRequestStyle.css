@@ -5,6 +5,7 @@
   width: 100%;
   box-shadow: var(--box-shadow);
   padding: 10px;
+  margin-bottom: 22px;
 }
 
 .friend-request-container .friend-reqest-card {

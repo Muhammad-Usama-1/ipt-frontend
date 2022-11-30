@@ -24,14 +24,14 @@ function ProfileEditTab() {
     // console.log(inputs);
   };
   const [inputs, setInputs] = useState({
-    firstname: "",
-    lastname: "",
-    username: "",
-    address: "",
-    age: "",
-    gender: "",
-    dob: "",
-    maritialstatus: "",
+    // firstname: "",
+    // lastname: "",
+    // username: "",
+    // address: "",
+    // age: "",
+    // gender: "",
+    // dob: "",
+    // maritialstatus: "",
   });
   const handleChange = async (event) => {
     const name = event.target.name;
@@ -51,6 +51,7 @@ function ProfileEditTab() {
 
       console.log(data.token);
       localStorage.setItem("token", data.token);
+      navigate(0);
 
       // localStorage.clear();
       // navigate("/login");
@@ -75,9 +76,10 @@ function ProfileEditTab() {
         ...inputs,
         name: `${inputs.firstname} + ${inputs.lastname} `,
       });
-      console.log(localStorage.getItem("token"));
+
       localStorage.setItem("token", data.token);
-      console.log(localStorage.getItem("token"));
+      console.log(data.user);
+
       // Update User in context
       // setUser(data.data);
 
