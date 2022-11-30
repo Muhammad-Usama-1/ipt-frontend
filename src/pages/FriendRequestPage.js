@@ -7,6 +7,45 @@ import { toast } from "react-toastify";
 
 function FriendRequestScreen() {
   const [friends, setFriends] = useState([]);
+  const [friendsRequest, setFriendsRequest] = useState([]);
+  const getfriendsRequest = async () => {
+    try {
+      const { data } = await client.get("/users/friendsRequest");
+      // console.log(data.data.data);
+      setFriendsRequest(data.data.data);
+
+      // console.log(myarr);
+      // setFriends(
+      //   friends.filter((el, i) => el._id !== friendsRequest[i].to_user._id)
+      // );
+      const myArr = friends.filter((el, i) => {
+        console.log(friendsRequest[i].to_user._id, el._id);
+        return true;
+      });
+      console.log("my array", myArr);
+      // setFriends(() =>
+      //   friends.filter((el, i) => el._id !== friendsRequest[i].to_user._id)
+      // );
+      setFriends(myArr);
+
+      // console.log("my arra", myarr);
+      // const arr = friends.forEach(
+      //   (el, i) => el._id === friendsRequest[i].to_user._id
+      // );
+
+      console.log("new recomendations", friends);
+      // localStorage.setItem("token", data.token);
+      // setUser(data.data);
+      // setUser(...user, data.data?.posts);
+      // navigate("/feed");
+    } catch ({ response }) {
+      if (response && response.status >= 400 && response.status < 500) {
+        console.log(response.data.message);
+        toast.error(response.data.message);
+      }
+    }
+  };
+
   const getUserList = async () => {
     try {
       const { data } = await client.get("/users");
@@ -23,44 +62,52 @@ function FriendRequestScreen() {
       }
     }
   };
+  const sendFriendRequest = async (id) => {
+    console.log("sending frined request..");
+    try {
+      // e.preventDefault();
+      const { data } = await client.post("/users/addFriend", { to_user: id });
+      console.log(data);
+      // localStorage.setItem("token", data.token);
+      // setUser(data.data);
+      // setUser(...user, data.data?.posts);
+      // navigate("/feed");
+    } catch ({ response }) {
+      if (response && response.status >= 400 && response.status < 500) {
+        console.log(response.data.message);
+        toast.error(response.data.message);
+      }
+    }
+  };
 
   useEffect(() => {
     getUserList();
+    getfriendsRequest();
   }, [0]);
   return (
     <Layout>
       <div className="content-media">
         <div className="friend-request-container">
           <p className="poppins subtitle">Friends Request</p>
-          <div className="friend-reqest-card">
+          {friendsRequest.map((el) => {
+            console.log(el.from_user.name);
+            return (
+              <div id={el._id} className="friend-reqest-card">
+                <UserCard title={el.to_user.name} subTitle="50 Friends" />
+                <div className="reqest-action--btns">
+                  <button className="primary-btn">Confirm</button>
+                  <button className="secondary-btn">Delete</button>
+                </div>
+              </div>
+            );
+          })}
+          {/* <div className="friend-reqest-card">
             <UserCard title="Zohaib Khan" subTitle="50 Friends" />
             <div className="reqest-action--btns">
               <button className="primary-btn">Confirm</button>
               <button className="secondary-btn">Delete</button>
             </div>
-          </div>
-          <div className="friend-reqest-card">
-            <UserCard
-              title="Rahat Ali"
-              image="https://images.unsplash.com/photo-1647456757917-ea444a2b703b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTl8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-              subTitle="0 Friends"
-            />
-            <div className="reqest-action--btns">
-              <button className="primary-btn">Confirm</button>
-              <button className="secondary-btn">Delete</button>
-            </div>
-          </div>
-          <div className="friend-reqest-card">
-            <UserCard
-              title="Hafeez"
-              image="https://images.unsplash.com/photo-1647456757917-ea444a2b703b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTl8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-              subTitle="1k+ Friends"
-            />
-            <div className="reqest-action--btns">
-              <button className="primary-btn">Confirm</button>
-              <button className="secondary-btn">Delete</button>
-            </div>
-          </div>
+          </div> */}
         </div>
         {/* ----------------------------------------- */}
 
@@ -72,40 +119,16 @@ function FriendRequestScreen() {
             <div id={el._id} className="friend-reqest-card">
               <UserCard title={el?.name} subTitle="50 Friends" />
               <div className="reqest-action--btns">
-                <button className="primary-btn">Add friend</button>
+                <button
+                  onClick={() => sendFriendRequest(el._id)}
+                  className="primary-btn"
+                >
+                  Add friend
+                </button>
                 <button className="secondary-btn">Remove</button>
               </div>
             </div>
           ))}
-          <div className="friend-reqest-card">
-            <UserCard title="Zohaib Khan" subTitle="50 Friends" />
-            <div className="reqest-action--btns">
-              <button className="primary-btn">Add friend</button>
-              <button className="secondary-btn">Remove</button>
-            </div>
-          </div>
-          <div className="friend-reqest-card">
-            <UserCard
-              title="Rahat Ali"
-              image="https://images.unsplash.com/photo-1647456757917-ea444a2b703b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTl8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-              subTitle="0 Friends"
-            />
-            <div className="reqest-action--btns">
-              <button className="primary-btn">Add friend</button>
-              <button className="secondary-btn">Remove</button>
-            </div>
-          </div>
-          <div className="friend-reqest-card">
-            <UserCard
-              title="Hafeez"
-              image="https://images.unsplash.com/photo-1647456757917-ea444a2b703b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTl8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-              subTitle="1k+ Friends"
-            />
-            <div className="reqest-action--btns">
-              <button className="primary-btn">Add friend</button>
-              <button className="secondary-btn">Remove</button>
-            </div>
-          </div>
         </div>
       </div>
     </Layout>
