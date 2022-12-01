@@ -6,38 +6,14 @@ import { client } from "../api/client";
 import { toast } from "react-toastify";
 
 function FriendRequestScreen() {
-  const [friends, setFriends] = useState([]);
+  const [peopleUmayKnow, setPeopleUmayKnow] = useState([]);
   const [friendsRequest, setFriendsRequest] = useState([]);
   const getfriendsRequest = async () => {
     try {
       const { data } = await client.get("/users/friendsRequest");
-      // console.log(data.data.data);
+      console.log(data);
+      // set newly Friends Request data
       setFriendsRequest(data.data.data);
-
-      // console.log(myarr);
-      // setFriends(
-      //   friends.filter((el, i) => el._id !== friendsRequest[i].to_user._id)
-      // );
-      const myArr = friends.filter((el, i) => {
-        console.log(friendsRequest[i].to_user._id, el._id);
-        return true;
-      });
-      console.log("my array", myArr);
-      // setFriends(() =>
-      //   friends.filter((el, i) => el._id !== friendsRequest[i].to_user._id)
-      // );
-      setFriends(myArr);
-
-      // console.log("my arra", myarr);
-      // const arr = friends.forEach(
-      //   (el, i) => el._id === friendsRequest[i].to_user._id
-      // );
-
-      console.log("new recomendations", friends);
-      // localStorage.setItem("token", data.token);
-      // setUser(data.data);
-      // setUser(...user, data.data?.posts);
-      // navigate("/feed");
     } catch ({ response }) {
       if (response && response.status >= 400 && response.status < 500) {
         console.log(response.data.message);
@@ -49,12 +25,16 @@ function FriendRequestScreen() {
   const getUserList = async () => {
     try {
       const { data } = await client.get("/users");
-      console.log(data.data.data);
-      setFriends(data.data.data);
-      // localStorage.setItem("token", data.token);
-      // setUser(data.data);
-      // setUser(...user, data.data?.posts);
-      // navigate("/feed");
+
+      setPeopleUmayKnow(data.data.data);
+      const friendsRequestArray = friendsRequest.map((val) => val.to_user?._id);
+      const tempPeopleUmayKnow = data.data.data.filter(
+        (val) => !friendsRequestArray.includes(val._id)
+      );
+      // Set People U may know
+      setPeopleUmayKnow(tempPeopleUmayKnow);
+      console.log("People you may now", peopleUmayKnow);
+      // console.log("Friend Request", friendsRequest);
     } catch ({ response }) {
       if (response && response.status >= 400 && response.status < 500) {
         console.log(response.data.message);
@@ -81,14 +61,15 @@ function FriendRequestScreen() {
   };
 
   useEffect(() => {
-    getUserList();
     getfriendsRequest();
+    getUserList();
   }, [0]);
   return (
     <Layout>
       <div className="content-media">
         <div className="friend-request-container">
           <p className="poppins subtitle">Friends Request</p>
+          {/*Friends Request section  */}
           {friendsRequest.map((el) => {
             console.log(el.from_user.name);
             return (
@@ -101,21 +82,13 @@ function FriendRequestScreen() {
               </div>
             );
           })}
-          {/* <div className="friend-reqest-card">
-            <UserCard title="Zohaib Khan" subTitle="50 Friends" />
-            <div className="reqest-action--btns">
-              <button className="primary-btn">Confirm</button>
-              <button className="secondary-btn">Delete</button>
-            </div>
-          </div> */}
         </div>
         {/* ----------------------------------------- */}
-
-        {/*Adding Freind  section */}
+        {/*People U may know  section */}
 
         <div className="friend-request-container">
           <p className="poppins subtitle">People You may know</p>
-          {friends.map((el) => (
+          {peopleUmayKnow.map((el) => (
             <div id={el._id} className="friend-reqest-card">
               <UserCard title={el?.name} subTitle="50 Friends" />
               <div className="reqest-action--btns">
