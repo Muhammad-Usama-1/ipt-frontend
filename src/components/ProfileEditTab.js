@@ -52,14 +52,6 @@ function ProfileEditTab() {
       console.log(data.token);
       localStorage.setItem("token", data.token);
       navigate(0);
-
-      // localStorage.clear();
-      // navigate("/login");
-
-      // console.log(data.token);
-
-      // setUser(data.data.user);
-      // console.log(user);
     } catch ({ response }) {
       if (response && response.status >= 400 && response.status < 500) {
         console.log(response.data.message);
@@ -68,6 +60,7 @@ function ProfileEditTab() {
     }
   };
   const handleSubmit = async (e) => {
+    //TODO // Check weather token is issued again int this API
     console.log("Handiling user update....", inputs);
     try {
       e.preventDefault();

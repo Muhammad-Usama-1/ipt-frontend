@@ -96,3 +96,8 @@
   display: block !important;
   width: 250px;
 }
+
+/*  */
+.move-to-friend-profile {
+  cursor: pointer;
+}

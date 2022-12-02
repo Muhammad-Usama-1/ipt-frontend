@@ -9,8 +9,11 @@ import UserAbout from "../components/cards/UserAboutCard";
 import UserBanner from "../components/cards/UserDetailCard";
 
 import "../styles/FriendProfileStyle.css";
+import { useParams } from "react-router-dom";
 
 function FriendProfileScreen() {
+  const params = useParams();
+  console.log(params); // 👉️ {userId: '4200'}
   return (
     <Layout>
       <div className="content-friendprofile">

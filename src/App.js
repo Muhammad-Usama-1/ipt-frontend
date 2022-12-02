@@ -63,7 +63,10 @@ function App() {
           <Route path="notification" element={<NotificationPage />} />
           <Route path="profile-video" element={<ProfileVideoPage />} />
           <Route path="friends" element={<FriendListPage />} />
-          <Route path="friendprofile" element={<FriendProfilePage />} />
+          <Route
+            path="friend-profile/:userId"
+            element={<FriendProfilePage />}
+          />
           <Route path="group" element={<GroupPage />} />
           <Route path="login" element={<LoginPage />} />
 
