@@ -28,6 +28,8 @@ import ProfileEditPage from "./pages/ProfileEditPage";
 import UserContext from "./context/userContext";
 import PublicRoute from "./Router/PublicRoute";
 import ChatPage from "./pages/ChatPage";
+import { client } from "./api/client";
+import MessageBody from "./components/MessageBody";
 // import ProtectedRoutes from "./Router/PrivateRoute";
 
 function App() {
@@ -38,13 +40,19 @@ function App() {
   const getUser = async () => {
     try {
       // Get Token from Localstorage
+      const token = localStorage.getItem("token");
+      if (!token) return;
+      const { data } = await client.get("/users/my-profile");
+      setUser(data.user);
+      console.log(user);
+
       // if there is token get my profile detais and set it to user
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
-    // getUser();
+    getUser();
   }, [0]);
 
   return (
@@ -53,7 +61,10 @@ function App() {
         <ToastContainer />
         <Routes>
           <Route path="/" element={<FeedPage />} />
-          <Route path="chat" element={<ChatPage />} />
+
+          <Route path="/chat" element={<ChatPage />}>
+            <Route path=":id" element={<MessageBody />} />
+          </Route>
 
           <Route path="signup" element={<SignupPage />} />
           <Route path="feed" element={<FeedPage />} />
