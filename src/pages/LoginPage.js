@@ -27,6 +27,7 @@ function LoginScreen() {
       console.log(data);
       localStorage.setItem("token", data.token);
       setUser(data.data);
+      console.log(user);
       // setUser(...user, data.data?.posts);
       navigate("/feed");
     } catch ({ response }) {

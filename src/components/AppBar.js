@@ -56,9 +56,11 @@ export default function ButtonAppBar({ sidebar }) {
 
           {matches990 ? (
             <div className="flex-x">
-              <LocalPostOfficeOutlinedIcon
-                style={{ marginLeft: 10, color: "#00b4cc" }}
-              />
+              <Link to="/chat">
+                <LocalPostOfficeOutlinedIcon
+                  style={{ marginLeft: 10, color: "#00b4cc" }}
+                />
+              </Link>
               <NotificationsNoneOutlinedIcon
                 style={{ marginLeft: 10, color: "#00b4cc" }}
               />

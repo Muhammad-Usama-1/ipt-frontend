@@ -27,6 +27,7 @@ import FriendRequestPage from "./pages/FriendRequestPage";
 import ProfileEditPage from "./pages/ProfileEditPage";
 import UserContext from "./context/userContext";
 import PublicRoute from "./Router/PublicRoute";
+import ChatPage from "./pages/ChatPage";
 // import ProtectedRoutes from "./Router/PrivateRoute";
 
 function App() {
@@ -52,6 +53,8 @@ function App() {
         <ToastContainer />
         <Routes>
           <Route path="/" element={<FeedPage />} />
+          <Route path="chat" element={<ChatPage />} />
+
           <Route path="signup" element={<SignupPage />} />
           <Route path="feed" element={<FeedPage />} />
           <Route path="friend-request" element={<FriendRequestPage />} />
