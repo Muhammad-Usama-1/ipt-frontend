@@ -1,6 +1,6 @@
 import React from "react";
 
-function UserDetailCard() {
+function UserDetailCard({ title = "Muhammad Usama" }) {
   return (
     <div className="profile-header">
       <div className="position-realative">
@@ -15,7 +15,7 @@ function UserDetailCard() {
             src="https://templates.iqonic.design/socialv/bs5/react/build/static/media/11.e3b79bb5.png"
             alt=""
           />
-          <h4>Usama</h4>
+          <h4> {title} </h4>
         </div>
       </div>
       <div className="profile-user-detail"></div>

@@ -11,6 +11,7 @@ function UserCard({
   return (
     <div className="usercard--container">
       <img className="usercard-photo" src={image ? image : userPhoto} alt="" />
+
       <div className="usercard-info">
         <div style={{ display: "flex" }}>
           <p>
