@@ -11,9 +11,9 @@ import { Link, Outlet } from "react-router-dom";
 function ChatPage() {
   const { setUser, user } = useContext(UserContext);
   const [publicChannel, setPublicChannel] = useState([
-    { name: "Tele", id: 1 },
-    { name: "Tele", id: 2 },
-    { name: "Tele", id: 3 },
+    { name: "IPT", id: 1 },
+    { name: "Network security", id: 2 },
+    { name: "Cloud computing", id: 3 },
   ]);
   console.log(user);
 
@@ -44,8 +44,11 @@ function ChatPage() {
           </div>
           {/* form end */}
           <h4>Public Channel</h4>
-          <UserCard />
-          <UserCard />
+          {publicChannel.map((el) => (
+            <Link to={`/chat/${el.id}`} state={{ name: el.name }}>
+              <UserCard title={el.name} key={el.id} />
+            </Link>
+          ))}
 
           <h4>Users</h4>
 

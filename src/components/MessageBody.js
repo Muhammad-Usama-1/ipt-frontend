@@ -20,6 +20,7 @@ import { Outlet, useLocation } from "react-router-dom";
 const socket = io.connect("http://localhost:3001");
 function MessageBody() {
   const location = useLocation();
+  console.log(location.state.name);
   // const { from } = location.state
   const [messageInput, setMessageInput] = useState("");
   const [room, setRoom] = useState("123");
@@ -68,7 +69,7 @@ function MessageBody() {
       <Outlet />
       <header>
         <div className="chat-message-container--header">
-          <UserCard title={location?.state?.from} />
+          <UserCard title={location?.state?.name} />
           <div className="flex-x">
             <LocalPostOfficeOutlinedIcon
               style={{ marginLeft: 10, color: "#00b4cc" }}
@@ -84,26 +85,15 @@ function MessageBody() {
       </header>
       {/* <div id="id" className="chat-message-container--msgs"> */}
       <ScrollToBottom className="chat-message-container--msgs">
-        {/* <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      /> */}
         <button onClick={joinRoom}>join now</button>
-
-        {/* <ChatBlock sender={false} /> */}
 
         {messageList.map((el) => (
           <ChatBlock messageData={el} />
         ))}
-        {/* ---------------------- */}
       </ScrollToBottom>
-      {/* </div> */}
+
       <footer className="chat-message-container--footer">
-        <div
-          className="iq-search-bar device-search only-for-msg-chat"
-          // style={{ width: "70rem" }}
-        >
+        <div className="iq-search-bar device-search only-for-msg-chat">
           <form onSubmit={sendMessage} action="#" className="">
             <a
               className="search-link"
