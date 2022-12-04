@@ -15,12 +15,14 @@ function FeedScreen() {
 
   const getFeeds = async () => {
     try {
-      const { data } = await client.get("/posts/feeds");
+      const { data } = await client.get("/posts/feeds", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
       console.log(data);
       // Get Token from Localstorage
       // if there is token get my profile detais and set it to user
     } catch (error) {
-      console.log(error);
+      console.log(error.response);
     }
   };
   useEffect(() => {

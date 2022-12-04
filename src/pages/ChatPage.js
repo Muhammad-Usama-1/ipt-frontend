@@ -45,7 +45,7 @@ function ChatPage() {
           {/* form end */}
           <h4>Public Channel</h4>
           {publicChannel.map((el) => (
-            <Link to={`/chat/${el.id}`} state={{ name: el.name }}>
+            <Link to={`/chat/${el.id}`} state={{ name: el.name, room: el.id }}>
               <UserCard title={el.name} key={el.id} />
             </Link>
           ))}

@@ -3,14 +3,9 @@ import UserContext from "../context/userContext";
 import io from "socket.io-client";
 import UserCard from "./cards/UserCard";
 
-//
-import userPhoto from "../assets/user.jpg";
-
-// ---------------------
-import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LocalPostOfficeOutlinedIcon from "@mui/icons-material/LocalPostOfficeOutlined";
-import MenuIcon from "@mui/icons-material/Menu";
+// import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ChatBlock from "../components/ChatBlock";
@@ -20,15 +15,15 @@ import { Outlet, useLocation } from "react-router-dom";
 const socket = io.connect("http://localhost:3001");
 function MessageBody() {
   const location = useLocation();
-  console.log(location.state.name);
+  console.log(location.state);
   // const { from } = location.state
   const [messageInput, setMessageInput] = useState("");
-  const [room, setRoom] = useState("123");
+  const [room, setRoom] = useState(location.state.room);
   const [messageList, setMessageList] = useState([]);
-  const [username, setUsername] = useState("");
+  // const [username, setUsername] = useState("");
   const { setUser, user } = useContext(UserContext);
   const joinRoom = () => {
-    socket.emit("join_room", room);
+    socket.emit("join_room", location.state.room);
   };
 
   const sendMessage = async (e) => {
@@ -56,6 +51,9 @@ function MessageBody() {
     // setCurrentMessage("");
     // }
   };
+  useEffect(() => {
+    joinRoom();
+  }, [location.state.name]);
   useEffect(() => {
     socket.on("receive_message", (data) => {
       console.log("new message arrived..");

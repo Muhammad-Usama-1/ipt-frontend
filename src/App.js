@@ -60,7 +60,7 @@ function App() {
       <BrowserRouter>
         <ToastContainer />
         <Routes>
-          <Route path="/" element={<FeedPage />} />
+          <Route path="/" element={user ? <FeedPage /> : <LoginPage />} />
 
           <Route path="/chat" element={<ChatPage />}>
             <Route path=":id" element={<MessageBody />} />
