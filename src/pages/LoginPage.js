@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import "../styles/AuthScreensStyle.css";
 import { client } from "../api/client";
@@ -10,44 +10,20 @@ import { useTokenHook } from "../hooks/UseToken";
 
 function LoginScreen() {
   const { saveData } = useTokenHook();
-  const [token, setToken] = useState("");
-  const [storedToken, setStoredToken] = useState(localStorage.getItem("token"));
   const { setUser, user } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const saveData = async (token) => {
-  //   // setChange(!change);
-  //   await localStorage.setItem("token", token);
-  //   // await localStorage.setItem("Password", password);
-  // };
-  const handle = () => {
-    localStorage.setItem("Name", token);
 
-    setStoredToken(token);
-  };
   const navigate = useNavigate();
-  useEffect(() => {
-    // navigate("/feed");
-    console.log(user);
-    // if (user) navigate("/feed");
-    // if (user) return navigate("/feed");
-  }, [0]);
 
   const doLogin = async (e) => {
     try {
       e.preventDefault();
       const { data } = await client.post("/users/login", { email, password });
-      console.log(data);
-      saveData(data.token);
-      // setToken(data.token);
-      // saveData(data.token);
 
-      // setStoredToken(data.token);
-      // localStorage.setItem("token", data.token);
-      handle();
+      saveData(data.token);
       setUser(data.data);
-      console.log(user);
-      // setUser(...user, data.data?.posts);
+
       navigate("/feed");
     } catch ({ response }) {
       if (response && response.status >= 400 && response.status < 500) {

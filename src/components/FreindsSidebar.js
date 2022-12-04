@@ -10,10 +10,8 @@ import { Link } from "react-router-dom";
 import { useTokenHook } from "../hooks/UseToken";
 
 function FreindsSidebar({ fsidebar }) {
-  const { token } = useTokenHook();
+  // const { token } = useTokenHook();
   const [friends, setFriends] = useState([]);
-  // const matches = useMediaQuery("(min-width:980px)");
-  // const matches990 = useMediaQuery("(min-width:990px)");
 
   const matches1300 = useMediaQuery("(min-width:1300px)");
   const matches1500 = useMediaQuery("(min-width:1500px)");
@@ -70,9 +68,6 @@ function FreindsSidebar({ fsidebar }) {
                     <UserCard title={el.to_user?.name} key={el.to_user._id} />
                   </Link>
                 ))}
-                {/* <UserCard title="Mughees Khan" />
-                <UserCard title="Mudassir Ahmed" subTitle="Moderator" />
-                <UserCard title="Imran Ali" subTitle="Admin" /> */}
               </ul>
             </div>
           </div>
