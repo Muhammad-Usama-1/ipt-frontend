@@ -371,3 +371,20 @@
   background-color: rgb(255, 196, 196) !important;
   color: red !important;
 }
+.profile-edit-img-container {
+  position: relative;
+}
+.profile-img--edit {
+  max-width: 200px;
+  border-radius: 50%;
+}
+.form__upload {
+  background-color: rgb(151, 136, 141);
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  bottom: 10px;
+  left: 160px;
+  opacity: 1;
+  /* z-index: -1; */
+}

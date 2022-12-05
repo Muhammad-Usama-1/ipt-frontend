@@ -1,9 +1,11 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
+const domainUrl = process.env.DOMAIN_URL || "http://localhost:3002";
 const client = axios.create({
   withCredentials: true,
-  baseURL: "http://localhost:3002/api/v1",
+  // Means this URL is mostly user in calling API from frontend
+  baseURL: `${domainUrl}/api/v1`,
 
   headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
 
@@ -23,5 +25,5 @@ client.interceptors.response.use(null, (error) => {
   return Promise.reject(error);
 });
 // const Imageclient = "http://localhost:3001/img";
-const Imageclient = "https://stormy-dusk-68006.herokuapp.com/img";
+const Imageclient = `${domainUrl}/img`;
 export { client, Imageclient };

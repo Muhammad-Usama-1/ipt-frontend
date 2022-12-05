@@ -1,20 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Imageclient } from "../../api/client";
+import profileHeader from "../../assets/images/profile-header.jpg";
+import UserContext from "../../context/userContext";
+function UserDetailCard({ title = "Muhammad Usama", files, setFiles }) {
+  const { setUser, user } = useContext(UserContext);
+  console.log("==> New file", files);
 
-function UserDetailCard({ title = "Muhammad Usama" }) {
+  console.log(user);
   return (
     <div className="profile-header">
       <div className="position-realative">
-        <img
-          className="profile--header-pic"
-          src="https://templates.iqonic.design/socialv/bs5/react/build/static/media/profile-bg1.5e2df945.jpg"
-          alt=""
-        />
+        <img className="profile--header-pic" src={profileHeader} alt="" />
         <div className="profile-img">
           <img
             className="profile-round-pic"
-            src="https://templates.iqonic.design/socialv/bs5/react/build/static/media/11.e3b79bb5.png"
+            src={`${Imageclient}/users/${user?.photo}`}
+            // src="https://templates.iqonic.design/socialv/bs5/react/build/static/media/11.e3b79bb5.png"
             alt=""
           />
+
           <h4> {title} </h4>
         </div>
       </div>

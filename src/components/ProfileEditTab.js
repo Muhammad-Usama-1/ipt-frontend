@@ -1,14 +1,23 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { client } from "../api/client";
+import { client, Imageclient } from "../api/client";
 import UserContext from "../context/userContext";
+import { useTokenHook } from "../hooks/UseToken";
 import "../styles/TabStyle.css";
 
 function ProfileEditTab() {
+  const [files, setFiles] = useState("");
   const { setUser, user } = useContext(UserContext);
+  console.log("==> New file", files);
+  const upload = (e) => {
+    if (e.target.files) {
+      setFiles(e.target.files[0]);
+    }
+  };
 
   const navigate = useNavigate();
+  const { saveData } = useTokenHook();
 
   const [toggle, setToggle] = useState(1);
   const [passInputs, setPassInputs] = useState({
@@ -60,18 +69,28 @@ function ProfileEditTab() {
     }
   };
   const handleSubmit = async (e) => {
+    const form = new FormData();
+    form.append("photo", files);
+    for (const property in inputs) {
+      // console.log(`${property}: ${inputs[property]}`);
+      form.append(property, inputs[property]);
+      // console.log(form);
+    }
+
     //TODO // Check weather token is issued again int this API
     console.log("Handiling user update....", inputs);
     try {
       e.preventDefault();
       // Call API
-      const { data } = await client.patch("/users/updateMe", {
-        ...inputs,
-        name: `${inputs.firstname} + ${inputs.lastname} `,
-      });
+      const { data } = await client.patch(
+        "/users/updateMe",
+        form
+        // name: `${inputs.firstname} + ${inputs.lastname} `,
+      );
 
-      localStorage.setItem("token", data.token);
-      console.log(data.user);
+      // localStorage.setItem("token", data.token);
+      // saveData(data.token);
+      // console.log(data.token);
 
       // Update User in context
       // setUser(data.data);
@@ -118,6 +137,27 @@ function ProfileEditTab() {
         <div className={toggle === 1 ? "content-active" : "content-hidden"}>
           <div className="content-active-box">
             <h3 className="tab-title">Personal Information</h3>
+            <div className="profile-edit-img-container">
+              <img
+                className="profile-img--edit"
+                src={`${Imageclient}/users/${user?.photo}`}
+                // src="https://templates.iqonic.design/socialv/bs5/react/build/static/media/11.e3b79bb5.png"
+                alt=""
+              />
+
+              {/* <h4> {title} </h4> */}
+              <div className="app-edit">
+                <input
+                  className="form__upload"
+                  type="file"
+                  accept="image/*"
+                  id="photo"
+                  name="photo"
+                  onChange={upload}
+                />
+              </div>
+            </div>
+
             <div className="profile-edit--form">
               <div className="app-input">
                 <label htmlFor="firstname">First Name:</label>

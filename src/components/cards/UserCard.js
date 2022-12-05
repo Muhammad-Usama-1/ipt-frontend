@@ -1,4 +1,5 @@
 import React from "react";
+import { Imageclient } from "../../api/client";
 import userPhoto from "../../assets/user.jpg";
 function UserCard({
   toComment,
@@ -10,7 +11,13 @@ function UserCard({
 }) {
   return (
     <div className="usercard--container">
-      <img className="usercard-photo" src={image ? image : userPhoto} alt="" />
+      {/* <img className="usercard-photo" src={image ? image : userPhoto} alt="" /> */}
+      <img
+        className="usercard-photo"
+        src={`${Imageclient}/users/default.jpg`}
+        // src={`http://localhost:3002/img/users/default.jpg`}
+        alt=""
+      />
 
       <div className="usercard-info">
         <div style={{ display: "flex" }}>
