@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -30,11 +30,12 @@ import PublicRoute from "./Router/PublicRoute";
 import ChatPage from "./pages/ChatPage";
 import { client } from "./api/client";
 import MessageBody from "./components/MessageBody";
+import FriendContext from "./context/friendContext";
 // import ProtectedRoutes from "./Router/PrivateRoute";
 
 function App() {
   const [user, setUser] = useState("");
-
+  const [friends, setFriends] = useState("");
   // const navigate = useNavigate();
 
   const getUser = async () => {
@@ -42,51 +43,71 @@ function App() {
       // Get Token from Localstorage
       const token = localStorage.getItem("token");
       if (!token) return;
+      // if there is token get my profile detais and set it to user
       const { data } = await client.get("/users/my-profile");
       setUser(data.user);
-      console.log(user);
+      // If there is use then call myfrind API and set it to freinds context
 
-      // if there is token get my profile detais and set it to user
+      console.log(user);
     } catch (error) {
       console.log(error);
     }
   };
+  const getFriendsList = useCallback(async () => {
+    try {
+      const { data } = await client.get(
+        "/users/friends"
+        // headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      );
+      setFriends(data.data);
+
+      console.log(data.data);
+    } catch ({ response }) {
+      if (response && response.status >= 400 && response.status < 500) {
+        console.log(response?.data?.message);
+        // toast.error(response.data.message);
+      }
+    }
+  }, []);
   useEffect(() => {
     getUser();
+    getFriendsList();
   }, [0]);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      <BrowserRouter>
-        <ToastContainer />
-        <Routes>
-          <Route path="/" element={user ? <FeedPage /> : <LoginPage />} />
+      <FriendContext.Provider value={{ friends, setFriends }}>
+        <BrowserRouter>
+          <ToastContainer />
+          <Routes>
+            <Route path="/" element={user ? <FeedPage /> : <LoginPage />} />
 
-          <Route path="/chat" element={<ChatPage />}>
-            <Route path=":id" element={<MessageBody />} />
-          </Route>
+            <Route path="/chat" element={<ChatPage />}>
+              <Route path=":id" element={<MessageBody />} />
+            </Route>
 
-          <Route path="signup" element={<SignupPage />} />
-          <Route path="feed" element={<FeedPage />} />
-          <Route path="friend-request" element={<FriendRequestPage />} />
-          <Route path="profile" element={<ProfilePage />} />
-          <Route path="profile-edit" element={<ProfileEditPage />} />
-          <Route path="profile-image" element={<ProfilePhotoPage />} />
-          <Route path="profile-badge" element={<ProfileBadgePage />} />
-          <Route path="profile-event" element={<ProfileEventPage />} />
-          <Route path="notification" element={<NotificationPage />} />
-          <Route path="profile-video" element={<ProfileVideoPage />} />
-          <Route path="friends" element={<FriendListPage />} />
-          <Route
-            path="friend-profile/:userId"
-            element={<FriendProfilePage />}
-          />
-          <Route path="group" element={<GroupPage />} />
-          <Route path="login" element={<LoginPage />} />
+            <Route path="signup" element={<SignupPage />} />
+            <Route path="feed" element={<FeedPage />} />
+            <Route path="friend-request" element={<FriendRequestPage />} />
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="profile-edit" element={<ProfileEditPage />} />
+            <Route path="profile-image" element={<ProfilePhotoPage />} />
+            <Route path="profile-badge" element={<ProfileBadgePage />} />
+            <Route path="profile-event" element={<ProfileEventPage />} />
+            <Route path="notification" element={<NotificationPage />} />
+            <Route path="profile-video" element={<ProfileVideoPage />} />
+            <Route path="friends" element={<FriendListPage />} />
+            <Route
+              path="friend-profile/:userId"
+              element={<FriendProfilePage />}
+            />
+            <Route path="group" element={<GroupPage />} />
+            <Route path="login" element={<LoginPage />} />
 
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </FriendContext.Provider>
     </UserContext.Provider>
   );
 }
