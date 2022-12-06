@@ -22,23 +22,29 @@ const style = {
 };
 
 export default function CreatePostModal() {
+  const [files, setFiles] = React.useState("");
+  // const { setUser, user } = useContext(UserContext);
+  console.log("==> New file", files);
+  const upload = (e) => {
+    if (e.target.files) {
+      setFiles(e.target.files[0]);
+    }
+  };
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   const handlecreatePost = async () => {
+    const form = new FormData();
+    form.append("photo", files);
+    form.append("text", files);
     // TOken
-    const config = {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    };
+    // const config = {
+    //   headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    // };
     // make an api call to create a post in db with specfic user
     // client.post("/users/login", { email, password });
-    const { data } = await client.post(
-      "/posts",
-      {
-        text: "I am post , what da",
-      },
-      config
-    );
+    const { data } = await client.post("/posts", form);
     console.log(data);
 
     // show success message on post upload
@@ -83,6 +89,14 @@ export default function CreatePostModal() {
             rows={11}
             placeholder="Write something"
           ></textarea>
+          <input
+            // className="form__upload"
+            type="file"
+            accept="image/*"
+            id="photo"
+            name="photo"
+            onChange={upload}
+          />
           {/* <Button onClick={handlecreatePost} fullWidth variant="contained"> */}
           {/* </Button> */}
           <button onClick={handlecreatePost} className="create-post-btn">

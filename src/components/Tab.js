@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import StarsIcon from "@mui/icons-material/Stars";
 
@@ -11,12 +11,34 @@ import PhotosCard from "./cards/PhotosCard";
 import FriendsPhotoCard from "./cards/FriendsPhotoCard";
 import UserContext from "../context/userContext";
 import FriendContext from "../context/friendContext";
+import { client } from "../api/client";
+import { toast } from "react-toastify";
 function Tab() {
   const { setUser, user } = useContext(UserContext);
   const { friends } = useContext(FriendContext);
+  const [posts, setPosts] = useState([]);
 
   const [toggle, setToggle] = useState(2);
   const [inToggle, setInToggle] = useState(1);
+  const getUserPost = async () => {
+    try {
+      const { data } = await client.get("/posts");
+      console.log(data.data);
+      setPosts(data.data);
+      console.log(posts.length);
+      // setFriends(data.data);
+
+      // console.log(data);
+    } catch ({ response }) {
+      if (response && response.status >= 400 && response.status < 500) {
+        console.log(response.data.message);
+        toast.error(response.data.message);
+      }
+    }
+  };
+  useEffect(() => {
+    getUserPost();
+  }, []);
   return (
     <>
       <div className="tab-btns">
@@ -90,7 +112,7 @@ function Tab() {
               <FriendsPhotoCard />
             </div>
             <div className="posts">
-              {data.map((post) => (
+              {/* {data.map((post) => (
                 <Post
                   key={post.user.title}
                   videoUrl={post.videoUrl}
@@ -98,6 +120,17 @@ function Tab() {
                   images={post.images}
                   user={post.user}
                   like={post.like}
+                />
+              ))} */}
+              {posts.map((post) => (
+                <Post
+                  key={post._id}
+                  post={post}
+                  // videoUrl={post.videoUrl}
+                  // comments={post.comments}
+                  // images={post.images}
+                  // user={post.user}
+                  like={"134"}
                 />
               ))}
             </div>

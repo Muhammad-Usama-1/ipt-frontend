@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import UserCard from "./UserCard";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
@@ -10,7 +10,9 @@ import EmededVideo from "../EmededVideo";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 
 import "../../styles/PostStyle.css";
-function Post({ videoUrl, images, user, comments, like }) {
+import UserContext from "../../context/userContext";
+function Post({ videoUrl, images, comments, like, post }) {
+  const { setUser, user } = useContext(UserContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -29,9 +31,9 @@ function Post({ videoUrl, images, user, comments, like }) {
         }}
       >
         <UserCard
-          title={user?.title}
-          cta={user?.cta}
-          image={user?.photo}
+          title={user?.name}
+          // cta={user?.cta}
+          // image={user?.photo}
           // cta={"Added new photo"}
         />
         <MoreHorizIcon
@@ -125,11 +127,7 @@ function Post({ videoUrl, images, user, comments, like }) {
         </Menu>
       </div>
       <div style={{ marginBottom: "10px" }}>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla,
-          aspernatur expedita. Sit soluta, id repellat ut ullam laboriosam
-          quidem vero.
-        </p>
+        <p>{post.text}</p>
       </div>
 
       <div className="post-media">
