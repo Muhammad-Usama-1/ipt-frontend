@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import StarsIcon from "@mui/icons-material/Stars";
 
@@ -9,7 +9,12 @@ import data from "../assets/posts.json";
 import PhotosCard from "./cards/PhotosCard";
 // import FriendCard from "./FriendCard";
 import FriendsPhotoCard from "./cards/FriendsPhotoCard";
+import UserContext from "../context/userContext";
+import FriendContext from "../context/friendContext";
 function Tab() {
+  const { setUser, user } = useContext(UserContext);
+  const { friends } = useContext(FriendContext);
+
   const [toggle, setToggle] = useState(2);
   const [inToggle, setInToggle] = useState(1);
   return (
@@ -152,15 +157,15 @@ function Tab() {
               <div>
                 <div className="box">
                   <p>Email</p>
-                  <p>mdusama225@gmail.com</p>
+                  <p> {user?.email} </p>
                 </div>
                 <div className="box">
-                  <p>Mobile</p>
-                  <p>03402306855</p>
+                  <p> Mobile</p>
+                  <p>{user?.mobile || "No mobile no."}</p>
                 </div>
                 <div className="box">
                   <p>Address</p>
-                  <p>Asia , Pakistan (Islamic country) </p>
+                  <p> {user?.address || "No address found"}</p>
                 </div>
               </div>
               {/* ---------------------- */}
@@ -342,72 +347,19 @@ function Tab() {
             <button>Following</button>
           </div>
           <div className="friendsCard-container">
-            <div className="tab-friendCard">
-              <img
-                src="https://templates.iqonic.design/socialv/bs5/react/build/static/media/05.803eaf62.jpg"
-                alt=""
-              />
-              <div>
-                <p>Petey Curiser</p>
-                <span>15 Friends</span>
+            {friends.map((el) => (
+              <div className="tab-friendCard">
+                <img
+                  src="https://templates.iqonic.design/socialv/bs5/react/build/static/media/05.803eaf62.jpg"
+                  alt=""
+                />
+                <div>
+                  <p>{el?.to_user.name} </p>
+                  <span>15 Friends</span>
+                </div>
+                <button style={{ marginLeft: "auto" }}>Friends</button>
               </div>
-              <button style={{ marginLeft: "auto" }}>Friends</button>
-            </div>
-            <div className="tab-friendCard">
-              <img
-                src="https://templates.iqonic.design/socialv/bs5/react/build/static/media/05.803eaf62.jpg"
-                alt=""
-              />
-              <div>
-                <p>Petey Curiser</p>
-                <span>15 Friends</span>
-              </div>
-              <button style={{ marginLeft: "auto" }}>Friends</button>
-            </div>
-            <div className="tab-friendCard">
-              <img
-                src="https://templates.iqonic.design/socialv/bs5/react/build/static/media/05.803eaf62.jpg"
-                alt=""
-              />
-              <div>
-                <p>Petey Curiser</p>
-                <span>15 Friends</span>
-              </div>
-              <button style={{ marginLeft: "auto" }}>Friends</button>
-            </div>
-            <div className="tab-friendCard">
-              <img
-                src="https://templates.iqonic.design/socialv/bs5/react/build/static/media/05.803eaf62.jpg"
-                alt=""
-              />
-              <div>
-                <p>Petey Curiser</p>
-                <span>15 Friends</span>
-              </div>
-              <button style={{ marginLeft: "auto" }}>Friends</button>
-            </div>
-            <div className="tab-friendCard">
-              <img
-                src="https://templates.iqonic.design/socialv/bs5/react/build/static/media/05.803eaf62.jpg"
-                alt=""
-              />
-              <div>
-                <p>Petey Curiser</p>
-                <span>15 Friends</span>
-              </div>
-              <button style={{ marginLeft: "auto" }}>Friends</button>
-            </div>
-            <div className="tab-friendCard">
-              <img
-                src="https://templates.iqonic.design/socialv/bs5/react/build/static/media/05.803eaf62.jpg"
-                alt=""
-              />
-              <div>
-                <p>Petey Curiser</p>
-                <span>15 Friends</span>
-              </div>
-              <button style={{ marginLeft: "auto" }}>Friends</button>
-            </div>
+            ))}
           </div>
         </div>
       </div>
