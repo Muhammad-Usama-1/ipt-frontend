@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useMediaQuery } from "@mui/material";
 
@@ -8,10 +8,13 @@ import { toast } from "react-toastify";
 import { client } from "../api/client";
 import { Link } from "react-router-dom";
 import { useTokenHook } from "../hooks/UseToken";
+import FriendContext from "../context/friendContext";
 
 function FreindsSidebar({ fsidebar }) {
   // const { token } = useTokenHook();
-  const [friends, setFriends] = useState([]);
+  const { friends } = useContext(FriendContext);
+  // console.log(a);
+  // const [friends, setFriends] = useState([]);
 
   const matches1300 = useMediaQuery("(min-width:1300px)");
   const matches1500 = useMediaQuery("(min-width:1500px)");
@@ -25,23 +28,23 @@ function FreindsSidebar({ fsidebar }) {
   };
 
   // Get friends
-  const getFriendsList = useCallback(async () => {
-    try {
-      const { data } = await client.get("/users/friends", {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
-      setFriends(data.data);
+  // const getFriendsList = useCallback(async () => {
+  //   try {
+  //     const { data } = await client.get("/users/friends", {
+  //       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  //     });
+  //     setFriends(data.data);
 
-      // console.log(data);
-    } catch ({ response }) {
-      if (response && response.status >= 400 && response.status < 500) {
-        console.log(response.data.message);
-        toast.error(response.data.message);
-      }
-    }
-  }, []);
+  //     // console.log(data);
+  //   } catch ({ response }) {
+  //     if (response && response.status >= 400 && response.status < 500) {
+  //       console.log(response.data.message);
+  //       toast.error(response.data.message);
+  //     }
+  //   }
+  // }, []);
   useEffect(() => {
-    getFriendsList();
+    // getFriendsList();
   }, [0]);
   return (
     <div style={{ display: "flex" }}>
@@ -60,7 +63,7 @@ function FreindsSidebar({ fsidebar }) {
           <div className="menu-bar">
             <div className="menu">
               <ul className="menu-links">
-                {friends.map((el) => (
+                {friends?.map((el) => (
                   <Link
                     className="move-to-friend-profile"
                     to={`/friend-profile/${el.to_user?._id}`}

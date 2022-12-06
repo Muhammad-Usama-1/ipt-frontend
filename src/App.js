@@ -35,7 +35,7 @@ import FriendContext from "./context/friendContext";
 
 function App() {
   const [user, setUser] = useState("");
-  const [friends, setFriends] = useState("");
+  const [friends, setFriends] = useState([]);
   // const navigate = useNavigate();
 
   const getUser = async () => {
@@ -61,7 +61,7 @@ function App() {
       );
       setFriends(data.data);
 
-      console.log(data.data);
+      // console.log(data.data);
     } catch ({ response }) {
       if (response && response.status >= 400 && response.status < 500) {
         console.log(response?.data?.message);
