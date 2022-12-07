@@ -78,25 +78,11 @@ function ProfileEditTab() {
     }
 
     //TODO // Check weather token is issued again int this API
-    console.log("Handiling user update....", inputs);
+
     try {
       e.preventDefault();
       // Call API
-      const { data } = await client.patch(
-        "/users/updateMe",
-        form
-        // name: `${inputs.firstname} + ${inputs.lastname} `,
-      );
-
-      // localStorage.setItem("token", data.token);
-      // saveData(data.token);
-      // console.log(data.token);
-
-      // Update User in context
-      // setUser(data.data);
-
-      // Change page in to Feed screen
-      // navigate("/feed");
+      const { data } = await client.patch("/users/updateMe", form);
     } catch ({ response }) {
       // Catch unwanted 400 error
       if (response && response.status >= 400 && response.status < 500) {

@@ -54,6 +54,8 @@ function App() {
     }
   };
   const getFriendsList = useCallback(async () => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
     try {
       const { data } = await client.get(
         "/users/friends"

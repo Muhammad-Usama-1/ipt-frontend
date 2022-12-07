@@ -23,8 +23,7 @@ const style = {
 
 export default function CreatePostModal() {
   const [files, setFiles] = React.useState("");
-  // const { setUser, user } = useContext(UserContext);
-  console.log("==> New file", files);
+
   const upload = (e) => {
     if (e.target.files) {
       setFiles(e.target.files[0]);
@@ -33,24 +32,25 @@ export default function CreatePostModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [text, setText] = React.useState("");
 
   const handlecreatePost = async () => {
     const form = new FormData();
     form.append("photo", files);
-    form.append("text", files);
+    form.append("text", text);
     // TOken
     // const config = {
     //   headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     // };
     // make an api call to create a post in db with specfic user
     // client.post("/users/login", { email, password });
-    const { data } = await client.post("/posts", form);
-    console.log(data);
+    // const { data } = await client.post("/posts", form);
+    console.log(text);
 
     // show success message on post upload
-    toast.success("Post Succecfully created");
+    // toast.success("Post Succecfully created");
     // Close the modal
-    setOpen(!open);
+    // setOpen(!open);
   };
 
   return (
@@ -85,6 +85,8 @@ export default function CreatePostModal() {
             style={{ width: 200 }}
           /> */}
           <textarea
+            value={text}
+            onChange={(e) => setText(e.target.value)}
             cols={55}
             rows={11}
             placeholder="Write something"

@@ -127,7 +127,7 @@ function Post({ videoUrl, images, comments, like, post }) {
         </Menu>
       </div>
       <div style={{ marginBottom: "10px" }}>
-        <p>{post.text}</p>
+        <p>{post?.text || "No text was there in the Post"} </p>
       </div>
 
       <div className="post-media">
