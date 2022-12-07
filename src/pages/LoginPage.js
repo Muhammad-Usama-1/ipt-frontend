@@ -4,27 +4,38 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 import "../styles/AuthScreensStyle.css";
-import { client } from "../api/client";
+import { client, normalClient } from "../api/client";
 import UserContext from "../context/userContext";
 import { useTokenHook } from "../hooks/UseToken";
+import FriendContext from "../context/friendContext";
 
 function LoginScreen() {
   const { saveData } = useTokenHook();
   const { setUser, user } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { friends, setFriends } = useContext(FriendContext);
 
   const navigate = useNavigate();
 
   const doLogin = async (e) => {
     try {
       e.preventDefault();
-      const { data } = await client.post("/users/login", { email, password });
+      const { data } = await normalClient.post("/users/login", {
+        email,
+        password,
+      });
 
       saveData(data.token);
       setUser(data.data);
 
+      const { data2 } = await client.get(
+        "/users/friends"
+        // headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      );
+      setFriends(data2.data);
       navigate("/feed");
+      // navigate("/feed");
     } catch ({ response }) {
       if (response && response.status >= 400 && response.status < 500) {
         console.log(response.data.message);

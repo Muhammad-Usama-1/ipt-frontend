@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
 import { client, Imageclient } from "../api/client";
 import UserContext from "../context/userContext";
-import { useTokenHook } from "../hooks/UseToken";
 import "../styles/TabStyle.css";
 
 function ProfileEditTab() {
@@ -17,7 +17,6 @@ function ProfileEditTab() {
   };
 
   const navigate = useNavigate();
-  const { saveData } = useTokenHook();
 
   const [toggle, setToggle] = useState(1);
   const [passInputs, setPassInputs] = useState({
@@ -28,20 +27,10 @@ function ProfileEditTab() {
   const changePasswordFeild = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    // console.log(name, value);
+
     setPassInputs((values) => ({ ...values, [name]: value }));
-    // console.log(inputs);
   };
-  const [inputs, setInputs] = useState({
-    // firstname: "",
-    // lastname: "",
-    // username: "",
-    // address: "",
-    // age: "",
-    // gender: "",
-    // dob: "",
-    // maritialstatus: "",
-  });
+  const [inputs, setInputs] = useState({});
   const handleChange = async (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -72,12 +61,8 @@ function ProfileEditTab() {
     const form = new FormData();
     form.append("photo", files);
     for (const property in inputs) {
-      // console.log(`${property}: ${inputs[property]}`);
       form.append(property, inputs[property]);
-      // console.log(form);
     }
-
-    //TODO // Check weather token is issued again int this API
 
     try {
       e.preventDefault();

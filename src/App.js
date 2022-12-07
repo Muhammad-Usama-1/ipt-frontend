@@ -31,11 +31,14 @@ import ChatPage from "./pages/ChatPage";
 import { client } from "./api/client";
 import MessageBody from "./components/MessageBody";
 import FriendContext from "./context/friendContext";
+import { useTokenHook } from "./hooks/UseToken";
 // import ProtectedRoutes from "./Router/PrivateRoute";
 
 function App() {
   const [user, setUser] = useState("");
   const [friends, setFriends] = useState([]);
+  const [load, setLoad] = useState(false);
+  const { saveData } = useTokenHook();
   // const navigate = useNavigate();
 
   const getUser = async () => {
@@ -43,6 +46,7 @@ function App() {
       // Get Token from Localstorage
       const token = localStorage.getItem("token");
       if (!token) return;
+      saveData(token);
       // if there is token get my profile detais and set it to user
       const { data } = await client.get("/users/my-profile");
       setUser(data.user);
@@ -55,12 +59,13 @@ function App() {
   };
   const getFriendsList = useCallback(async () => {
     const token = localStorage.getItem("token");
+
     if (!token) return;
     try {
-      const { data } = await client.get(
-        "/users/friends"
-        // headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      );
+      // console.log("TOKEN-->", localStorage.getItem("token"));
+      const { data } = await client.get("/users/friends", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       setFriends(data.data);
 
       // console.log(data.data);
@@ -82,7 +87,10 @@ function App() {
         <BrowserRouter>
           <ToastContainer />
           <Routes>
-            <Route path="/" element={user ? <FeedPage /> : <LoginPage />} />
+            <Route
+              path="/"
+              element={user ? <FeedPage setLoad={setLoad} /> : <LoginPage />}
+            />
 
             <Route path="/chat" element={<ChatPage />}>
               <Route path=":id" element={<MessageBody />} />

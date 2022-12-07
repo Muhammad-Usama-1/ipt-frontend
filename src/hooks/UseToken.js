@@ -5,7 +5,7 @@ export function useTokenHook() {
   //   const [password, setPassword] = useState("");
   const [change, setChange] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const loadSaved = async () => {
       setToken(localStorage.getItem("token"));
     };
