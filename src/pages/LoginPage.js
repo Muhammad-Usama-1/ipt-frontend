@@ -15,6 +15,7 @@ function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { friends, setFriends } = useContext(FriendContext);
+  const [token, setToken] = useState("");
 
   const navigate = useNavigate();
 
@@ -27,14 +28,17 @@ function LoginScreen() {
       });
 
       saveData(data.token);
-      setUser(data.data);
+      console.log(token);
 
-      const { data2 } = await client.get(
-        "/users/friends"
-        // headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      );
+      setUser(data.data);
+      const { data2 } = await client.get("/users/friends", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        // headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(data2.data);
       setFriends(data2.data);
       navigate("/feed");
+
       // navigate("/feed");
     } catch ({ response }) {
       if (response && response.status >= 400 && response.status < 500) {
@@ -43,6 +47,7 @@ function LoginScreen() {
       }
     }
   };
+
   return (
     // user ? (
     // <Navigate to="/feed" />

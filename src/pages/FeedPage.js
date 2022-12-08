@@ -19,7 +19,9 @@ function FeedScreen({ setLoad }) {
       });
       setFeeds(data.data);
       console.log(data.data);
-      setLoad(true);
+      // location.reload();
+      // setLoad(true);
+      // window.location.reload(true);
       // Get Token from Localstorage
       // if there is token get my profile detais and set it to user
     } catch (error) {
@@ -28,6 +30,7 @@ function FeedScreen({ setLoad }) {
   }, []);
   useEffect(() => {
     getFeeds();
+    // window.location.reload(true);
   }, [0]);
   const { setUser, user } = useContext(UserContext);
   console.log("---------->", user);

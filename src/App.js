@@ -59,10 +59,8 @@ function App() {
   };
   const getFriendsList = useCallback(async () => {
     const token = localStorage.getItem("token");
-
     if (!token) return;
     try {
-      // console.log("TOKEN-->", localStorage.getItem("token"));
       const { data } = await client.get("/users/friends", {
         headers: { Authorization: `Bearer ${token}` },
       });

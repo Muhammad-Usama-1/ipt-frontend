@@ -13,7 +13,7 @@ import FriendContext from "../context/friendContext";
 function FreindsSidebar({ fsidebar }) {
   // const { token } = useTokenHook();
   const { friends } = useContext(FriendContext);
-  // console.log(a);
+  console.log(friends);
   // const [friends, setFriends] = useState([]);
 
   const matches1300 = useMediaQuery("(min-width:1300px)");

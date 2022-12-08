@@ -11,7 +11,10 @@ function FriendListScreen() {
   const [friends, setFriends] = useState([]);
   const getFriendsList = useCallback(async () => {
     try {
-      const { data } = await client.get("/users/friends");
+      const { data } = await client.get("/users/friends", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        // headers: { Authorization: `Bearer ${token}` },
+      });
       console.log(data.data);
       setFriends(data.data);
 
