@@ -14,7 +14,7 @@ function UserCard({
       {/* <img className="usercard-photo" src={image ? image : userPhoto} alt="" /> */}
       <img
         className="usercard-photo"
-        src={`${Imageclient}/users/default.jpg`}
+        src={`${Imageclient}/users/${image || "default.jpg"}`}
         // src={`http://localhost:3002/img/users/default.jpg`}
         alt=""
       />

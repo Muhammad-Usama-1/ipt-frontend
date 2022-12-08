@@ -11,6 +11,7 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 
 import "../../styles/PostStyle.css";
 import UserContext from "../../context/userContext";
+import { Imageclient } from "../../api/client";
 function Post({ videoUrl, images, comments, like, post }) {
   const { setUser, user } = useContext(UserContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -31,9 +32,9 @@ function Post({ videoUrl, images, comments, like, post }) {
         }}
       >
         <UserCard
-          title={user?.name}
+          title={post?.user_id?.name}
           // cta={user?.cta}
-          // image={user?.photo}
+          image={user?.user_id?.photo}
           // cta={"Added new photo"}
         />
         <MoreHorizIcon
@@ -131,10 +132,15 @@ function Post({ videoUrl, images, comments, like, post }) {
       </div>
 
       <div className="post-media">
-        {videoUrl && <EmededVideo videoUrl={videoUrl} />}
-        {!videoUrl && images && (
-          <img className="post--img" src={images[0]} alt="" />
-        )}
+        {/* {videoUrl && <EmededVideo videoUrl={videoUrl} />} */}
+
+        {post.photo ? (
+          <img
+            className="post--img"
+            src={`${Imageclient}/users/default.jpg`}
+            alt=""
+          />
+        ) : null}
       </div>
 
       <div
