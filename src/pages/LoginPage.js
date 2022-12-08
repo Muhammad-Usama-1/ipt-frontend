@@ -138,9 +138,9 @@ function LoginScreen() {
                 Dont have an account ? <a href="/">sign up</a>{" "}
               </p>
               <div className="login-options--icons">
-                <i class="bx bxl-facebook-square"></i>
-                <i class="bx bxl-twitter"></i>
-                <i class="bx bxl-instagram"></i>
+                <i className="bx bxl-facebook-square"></i>
+                <i className="bx bxl-twitter"></i>
+                <i className="bx bxl-instagram"></i>
               </div>
             </div>
           </div>
