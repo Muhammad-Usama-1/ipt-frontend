@@ -54,6 +54,7 @@ function FeedScreen({ setLoad }) {
             ))} */}
             {feeds.map((el) => (
               <Post
+                key={el._id}
                 // videoUrl={post.videoUrl}
                 // comments={post.comments}
                 // images={post.images}
