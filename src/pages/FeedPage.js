@@ -10,7 +10,7 @@ import UserContext from "../context/userContext";
 import { client } from "../api/client";
 
 function FeedScreen({ setLoad }) {
-  const [feeds, setFeeds] = useState("");
+  const [feeds, setFeeds] = useState([]);
 
   const getFeeds = useCallback(async () => {
     try {
@@ -18,7 +18,7 @@ function FeedScreen({ setLoad }) {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       setFeeds(data.data);
-      console.log(data);
+      console.log(data.data);
       setLoad(true);
       // Get Token from Localstorage
       // if there is token get my profile detais and set it to user
@@ -43,13 +43,23 @@ function FeedScreen({ setLoad }) {
   `}
         >
           <div className="posts">
-            {data.map((post) => (
+            {/* {data.map((post) => (
               <Post
                 videoUrl={post.videoUrl}
                 comments={post.comments}
                 images={post.images}
                 user={post.user}
                 like={post.like}
+              />
+            ))} */}
+            {feeds.map((el) => (
+              <Post
+                // videoUrl={post.videoUrl}
+                // comments={post.comments}
+                // images={post.images}
+                // user={post.user}
+                // like={post.like}
+                post={el}
               />
             ))}
           </div>
