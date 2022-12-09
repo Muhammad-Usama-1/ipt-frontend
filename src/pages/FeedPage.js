@@ -9,7 +9,7 @@ import ProtectedRoute from "../Router/ProtectedRoute";
 import UserContext from "../context/userContext";
 import { client } from "../api/client";
 
-function FeedScreen({ setLoad }) {
+function FeedScreen({}) {
   const [feeds, setFeeds] = useState([]);
 
   const getFeeds = useCallback(async () => {
@@ -30,7 +30,6 @@ function FeedScreen({ setLoad }) {
   }, []);
   useEffect(() => {
     getFeeds();
-    // window.location.reload(true);
   }, [0]);
   const { setUser, user } = useContext(UserContext);
   console.log("---------->", user);

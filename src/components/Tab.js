@@ -22,7 +22,10 @@ function Tab() {
   const [inToggle, setInToggle] = useState(1);
   const getUserPost = async () => {
     try {
-      const { data } = await client.get("/posts");
+      const { data } = await client.get("/posts", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        // headers: { Authorization: `Bearer ${token}` },
+      });
       console.log(data.data);
       setPosts(data.data);
       console.log(posts.length);

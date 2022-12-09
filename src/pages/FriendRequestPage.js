@@ -21,7 +21,9 @@ function FriendRequestScreen() {
   let tempPeopleUmayKnow;
   const getfriendsRequest = useCallback(async () => {
     try {
-      const { data } = await client.get("/users/friendsRequest");
+      const { data } = await client.get("/users/friendsRequest", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
       // set newly Friends Request data
       setFriendsRequest(data.data.data);
     } catch ({ response }) {
@@ -33,10 +35,13 @@ function FriendRequestScreen() {
   }, []);
   const getUserList = useCallback(async () => {
     // try {
-    const { data } = await client.get("/users");
+    const { data } = await client.get("/users", {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+    console.log(data.data);
     // setPeopleUmayKnow(data.data.data);
     const friendsRequestArray = friendsRequest.map((val) => val.to_user?._id);
-    tempPeopleUmayKnow = data.data.data.filter(
+    tempPeopleUmayKnow = data.data?.filter(
       (val) => !friendsRequestArray.includes(val._id)
     );
 
@@ -57,7 +62,13 @@ function FriendRequestScreen() {
   const sendFriendRequest = async (id) => {
     console.log("sending frined request..");
     try {
-      const { data } = await client.post("/users/addFriend", { to_user: id });
+      const { data } = await client.post(
+        "/users/addFriend",
+        { to_user: id },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
     } catch ({ response }) {
       if (response && response.status >= 400 && response.status < 500) {
         console.log(response.data.message);

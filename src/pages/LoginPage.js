@@ -12,10 +12,10 @@ import FriendContext from "../context/friendContext";
 function LoginScreen() {
   const { saveData } = useTokenHook();
   const { setUser, user } = useContext(UserContext);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("areebakhter912@gmail.com");
+  const [password, setPassword] = useState("pass1234");
   const { friends, setFriends } = useContext(FriendContext);
-  const [token, setToken] = useState("");
+  // const [token, setToken] = useState("");
 
   const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ function LoginScreen() {
       });
 
       saveData(data.token);
-      console.log(token);
+      // console.log(token);
 
       setUser(data.data);
       const { data2 } = await client.get("/users/friends", {
@@ -37,9 +37,8 @@ function LoginScreen() {
       });
       console.log(data2.data);
       setFriends(data2.data);
-      navigate("/feed");
-
       // navigate("/feed");
+      navigate("/feed");
     } catch ({ response }) {
       if (response && response.status >= 400 && response.status < 500) {
         console.log(response.data.message);

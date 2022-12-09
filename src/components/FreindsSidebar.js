@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import React, { useContext } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useMediaQuery } from "@mui/material";
 
@@ -9,12 +9,13 @@ import "../styles/FriendsSidebar.css";
 // import { client } from "../api/client";
 // import { useTokenHook } from "../hooks/UseToken";
 import FriendContext from "../context/friendContext";
+import { toast } from "react-toastify";
+import { client } from "../api/client";
 
 function FreindsSidebar({ fsidebar }) {
   // const { token } = useTokenHook();
-  const { friends } = useContext(FriendContext);
-  console.log(friends);
-  // const [friends, setFriends] = useState([]);
+  const { _, setFriends: setFriendsC } = useContext(FriendContext);
+  const [friends, setFriends] = useState([]);
 
   const matches1300 = useMediaQuery("(min-width:1300px)");
   const matches1500 = useMediaQuery("(min-width:1500px)");
@@ -27,9 +28,27 @@ function FreindsSidebar({ fsidebar }) {
     fsidebar.current.classList.toggle("close");
   };
 
-  // useEffect(() => {
-  //   // getFriendsList();
-  // }, [0]);
+  const getFriendsList = useCallback(async () => {
+    try {
+      const { data } = await client.get("/users/friends", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        // headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(data.data);
+      setFriends(data.data);
+      setFriendsC(data.data);
+
+      // console.log(data);
+    } catch ({ response }) {
+      if (response && response.status >= 400 && response.status < 500) {
+        console.log(response.data.message);
+        toast.error(response.data.message);
+      }
+    }
+  }, []);
+  useEffect(() => {
+    getFriendsList();
+  }, [0]);
   return (
     <div style={{ display: "flex" }}>
       <div onClick={runFunc} className="fsidebar-mobile">

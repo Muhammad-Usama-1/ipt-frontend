@@ -9,6 +9,8 @@ import { client } from "../api/client";
 import { toast } from "react-toastify";
 function FriendListScreen() {
   const [friends, setFriends] = useState([]);
+  // const { friends, setFriends } = useContext(FriendContext);
+
   const getFriendsList = useCallback(async () => {
     try {
       const { data } = await client.get("/users/friends", {
