@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Imageclient } from "../../api/client";
+import UserContext from "../../context/userContext";
 
 function FriendCard({ el }) {
+  const { user } = useContext(UserContext);
+
   return (
     <div className="friendlist-card">
       <div className="friendlist-card--header">
@@ -20,9 +23,19 @@ function FriendCard({ el }) {
             // src="https://templates.iqonic.design/socialv/bs5/react/build/static/media/06.753c45f1.jpg"
             alt=""
           />
-          <Link to={`/friend-profile/${el.to_user?._id}`}>
+          <Link
+            to={`/friend-profile/${
+              el?.to_user?._id == user._id
+                ? el?.from_user?._id
+                : el?.to_user?._id
+            }`}
+          >
             <div className="card-info-box">
-              <p className="card-info--title"> {el.to_user?.name} </p>
+              <p className="card-info--title">
+                {el?.to_user?._id == user._id
+                  ? el?.from_user?.name
+                  : el?.to_user?.name}
+              </p>
               <p>@developer</p>
               <p>Lorem ipsum dolor sit, amet consectetur adipisicing</p>
             </div>
