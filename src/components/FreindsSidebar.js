@@ -11,10 +11,13 @@ import "../styles/FriendsSidebar.css";
 import FriendContext from "../context/friendContext";
 import { toast } from "react-toastify";
 import { client } from "../api/client";
+import UserContext from "../context/userContext";
 
 function FreindsSidebar({ fsidebar }) {
   // const { token } = useTokenHook();
   const { _, setFriends: setFriendsC } = useContext(FriendContext);
+  const { user } = useContext(UserContext);
+
   const [friends, setFriends] = useState([]);
 
   const matches1300 = useMediaQuery("(min-width:1300px)");
@@ -32,13 +35,9 @@ function FreindsSidebar({ fsidebar }) {
     try {
       const { data } = await client.get("/users/friends", {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        // headers: { Authorization: `Bearer ${token}` },
       });
-      console.log(data.data);
-      setFriends(data.data);
-      setFriendsC(data.data);
 
-      // console.log(data);
+      setFriends(data.data);
     } catch ({ response }) {
       if (response && response.status >= 400 && response.status < 500) {
         console.log(response.data.message);
@@ -68,11 +67,24 @@ function FreindsSidebar({ fsidebar }) {
               <ul className="menu-links">
                 {friends?.map((el) => (
                   <Link
-                    key={el._id}
+                    key={el?._id}
                     className="move-to-friend-profile"
-                    to={`/friend-profile/${el.to_user?._id}`}
+                    to={`/friend-profile/${
+                      el?.to_user?._id == user._id
+                        ? el?.from_user?._id
+                        : el?.to_user?._id
+                    }`}
+                    // to={`/friend-profile/${el.to_user?._id}`}
                   >
-                    <UserCard title={el.to_user?.name} key={el.to_user._id} />
+                    <UserCard
+                      title={
+                        el?.to_user?._id == user._id
+                          ? el?.from_user?.name
+                          : el?.to_user?.name
+                      }
+                      // title={el?.friends?.name}
+                      key={el?.to_user?._id}
+                    />
                   </Link>
                 ))}
               </ul>

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Imageclient } from "../../api/client";
 import profileHeader from "../../assets/images/profile-header.jpg";
 import UserContext from "../../context/userContext";
-function UserDetailCard({ title = "Muhammad Usama" }) {
+function UserDetailCard({ title = "Muhammad Usama", imageUri }) {
   const { setUser, user } = useContext(UserContext);
   // console.log("==> New file", files);
 
@@ -14,12 +14,12 @@ function UserDetailCard({ title = "Muhammad Usama" }) {
         <div className="profile-img">
           <img
             className="profile-round-pic"
-            src={`${Imageclient}/users/${user?.photo}`}
+            src={`${Imageclient}/users/${imageUri || user?.photo}`}
             // src="https://templates.iqonic.design/socialv/bs5/react/build/static/media/11.e3b79bb5.png"
             alt=""
           />
 
-          <h4> {user?.name} </h4>
+          <h4> {title || user.name} </h4>
         </div>
       </div>
       <div className="profile-user-detail"></div>

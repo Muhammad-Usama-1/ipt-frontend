@@ -134,10 +134,10 @@ function Post({ videoUrl, images, comments, like, post }) {
       <div className="post-media">
         {/* {videoUrl && <EmededVideo videoUrl={videoUrl} />} */}
 
-        {post.photo ? (
+        {post?.photo ? (
           <img
             className="post--img"
-            src={`${Imageclient}/users/default.jpg`}
+            src={`${Imageclient}/posts/${post.photo}`}
             alt=""
           />
         ) : null}

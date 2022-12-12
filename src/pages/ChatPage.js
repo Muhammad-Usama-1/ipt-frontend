@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import UserCard from "../components/cards/UserCard";
 
 import "../styles/ChatStyle.css";
@@ -7,11 +7,16 @@ import UserContext from "../context/userContext";
 
 // import MessageBody from "../components/MessageBody";
 import { Link, Outlet } from "react-router-dom";
+// import FriendContext from "../context/friendContext";
+import { client } from "../api/client";
+import { toast } from "react-toastify";
 import FriendContext from "../context/friendContext";
 // const socket = io.connect("http://localhost:3001");
 function ChatPage() {
   const { setUser, user } = useContext(UserContext);
-  const { friends, setFriends } = useContext(FriendContext);
+  const { friends } = useContext(FriendContext);
+
+  // const { friends, setFriends } = useState([]);
   console.log(friends);
 
   const [publicChannel, setPublicChannel] = useState([
@@ -19,11 +24,7 @@ function ChatPage() {
     { name: "Network security", id: 2 },
     { name: "Cloud computing", id: 3 },
   ]);
-  console.log(user);
-
-  useEffect(() => {
-    // Get List of old messages from message Model with login user id and id of the freind
-  }, [0]);
+  // console.log(user);
 
   return (
     <>
@@ -58,10 +59,24 @@ function ChatPage() {
           {friends.map((el) => (
             <Link
               to={`/chat/${el._id}`}
-              state={{ name: el.to_user?.name, room: el._id }}
+              state={{
+                name:
+                  el?.to_user?._id == user._id
+                    ? el?.from_user?.name
+                    : el?.to_user?.name,
+                room: el._id,
+              }}
             >
-              <UserCard title={el.to_user?.name} key={el._id} />
+              <UserCard
+                title={
+                  el?.to_user?._id == user._id
+                    ? el?.from_user?.name
+                    : el?.to_user?.name
+                }
+                key={el._id}
+              />
             </Link>
+            // <h2>helo</h2>
           ))}
           {/* <UserCard />
           <UserCard />

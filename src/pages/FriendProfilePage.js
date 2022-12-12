@@ -15,14 +15,28 @@ import { toast } from "react-toastify";
 
 function FriendProfileScreen() {
   const [friendprofile, setFriendprofile] = useState("");
+  const [friendposts, setFriendposts] = useState([]);
+
   const params = useParams();
   // console.log(params); // 👉️ {userId: '4200'}
   const getFriendProfile = useCallback(async () => {
     try {
       const { data } = await client.get(`/users/${params.userId}`);
       setFriendprofile(data.data.data);
-
-      console.log(data);
+      console.log(data.data);
+    } catch ({ response }) {
+      if (response && response.status >= 400 && response.status < 500) {
+        console.log(response.data.message);
+        toast.error(response.data.message);
+      }
+    }
+  }, [params]);
+  const getFriendPosts = useCallback(async () => {
+    try {
+      const { data } = await client.get(`/posts/${params.userId}`);
+      // setFriendprofile(data.data.data);
+      setFriendposts(data.data);
+      console.log(data.data);
     } catch ({ response }) {
       if (response && response.status >= 400 && response.status < 500) {
         console.log(response.data.message);
@@ -32,11 +46,12 @@ function FriendProfileScreen() {
   }, [params]);
   useEffect(() => {
     getFriendProfile();
+    getFriendPosts();
   }, [getFriendProfile]);
   return (
     <Layout>
       <div className="content-friendprofile">
-        <UserBanner title={friendprofile.name} />
+        <UserBanner imageUri={friendprofile.photo} title={friendprofile.name} />
         <div className="timeline-box">
           <div>
             <UserAbout />
@@ -45,13 +60,22 @@ function FriendProfileScreen() {
           </div>
           <div>
             <div className="posts">
-              {data.map((post, i) => (
+              {/* {data.map((post, i) => (
                 <Post
                   key={i}
                   videoUrl={post.videoUrl}
                   comments={post.comments}
                   images={post.images}
                   user={post.user}
+                  like={post.like}
+                />
+              ))} */}
+              {friendposts.map((post) => (
+                <Post
+                  post={post}
+                  key={post._id}
+                  images={post.images}
+                  user={post?.user_id}
                   like={post.like}
                 />
               ))}
