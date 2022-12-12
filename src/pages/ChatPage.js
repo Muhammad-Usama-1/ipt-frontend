@@ -24,6 +24,10 @@ function ChatPage() {
     { name: "Network security", id: 2 },
     { name: "Cloud computing", id: 3 },
   ]);
+  useEffect(() => {
+    document.title = "IPT |  Chatting";
+    return () => (document.title = "IPT | MERN APP");
+  }, []);
   // console.log(user);
 
   return (

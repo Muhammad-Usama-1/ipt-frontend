@@ -25,8 +25,8 @@ function FriendRequestScreen() {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       // set newly Friends Request data
+      // console.log(data.data.data);
       setFriendsRequest(data.data.data);
-      console.log(data.data.data);
     } catch ({ response }) {
       if (response && response.status >= 400 && response.status < 500) {
         console.log(response.data.message);
@@ -34,23 +34,26 @@ function FriendRequestScreen() {
       }
     }
   };
-  const getUserList = useCallback(async () => {
+  const getUserList = async () => {
     // try {
     const { data } = await client.get("/users", {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     });
     console.log(data.data);
     setPeopleUmayKnow(data.data);
+    // console.log("Friend rquest ", friendsRequest[0].from_user._id);
     const friendsRequestArray = friendsRequest.map((val) => val.from_user._id);
-    // console.log("Friend request arr", friendsRequestArray);
+    // console.log("Friend rquest ", friendsRequestArray);
+
     tempPeopleUmayKnow = data.data?.filter(
       (val) => !friendsRequestArray.includes(val._id)
     );
+
     console.log("temp", tempPeopleUmayKnow);
 
     // Set People you may know
     setPeopleUmayKnow(tempPeopleUmayKnow);
-  }, [peopleUmayKnow]);
+  };
   // const
   const sendFriendRequest = async (id) => {
     console.log("sending frined request..");
@@ -91,6 +94,8 @@ function FriendRequestScreen() {
   useEffect(() => {
     getfriendsRequest();
     getUserList();
+    document.title = " Request || Recomendation";
+    return () => (document.title = "IPT | MERN APP");
   }, []);
   return (
     <Layout>
