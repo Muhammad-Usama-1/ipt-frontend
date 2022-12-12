@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../context/userContext";
 import io from "socket.io-client";
 import UserCard from "./cards/UserCard";
-
+import DeleteIcon from "@mui/icons-material/Delete";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LocalPostOfficeOutlinedIcon from "@mui/icons-material/LocalPostOfficeOutlined";
 // import MenuIcon from "@mui/icons-material/Menu";
@@ -10,7 +10,7 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ChatBlock from "../components/ChatBlock";
 import ScrollToBottom from "react-scroll-to-bottom";
-import { Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
 const socket = io.connect("http://localhost:3001");
 function MessageBody() {
@@ -24,6 +24,9 @@ function MessageBody() {
   const { setUser, user } = useContext(UserContext);
   const joinRoom = () => {
     socket.emit("join_room", location.state.room);
+  };
+  const deleteChat = () => {
+    setMessageList([]);
   };
 
   const sendMessage = async (e) => {
@@ -72,11 +75,14 @@ function MessageBody() {
             <LocalPostOfficeOutlinedIcon
               style={{ marginLeft: 10, color: "#00b4cc" }}
             />
-            <NotificationsNoneOutlinedIcon
+            <DeleteIcon
+              onClick={deleteChat}
               style={{ marginLeft: 10, color: "#00b4cc" }}
             />
             <PeopleOutlinedIcon style={{ marginLeft: 10, color: "#00b4cc" }} />
-            <HomeOutlinedIcon style={{ marginLeft: 10, color: "#00b4cc" }} />
+            <Link to="/feed">
+              <HomeOutlinedIcon style={{ marginLeft: 10, color: "#00b4cc" }} />
+            </Link>
             {/* <UserCard title={`${`} subTitle={false} /> */}
           </div>
         </div>
