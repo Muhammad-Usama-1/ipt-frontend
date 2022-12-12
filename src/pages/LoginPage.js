@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "../styles/AuthScreensStyle.css";
 import { client, normalClient } from "../api/client";
@@ -139,7 +139,8 @@ function LoginScreen() {
             </div>
             <div className="icon-action--box">
               <p>
-                Dont have an account ? <a href="/">sign up</a>{" "}
+                Dont have an account ? <Link to={"/signup"}>sign up</Link>
+                {/* {signup} */}
               </p>
               <div className="login-options--icons">
                 <i className="bx bxl-facebook-square"></i>

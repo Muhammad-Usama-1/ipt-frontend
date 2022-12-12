@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { client } from "../api/client";
 import UserContext from "../context/userContext";
@@ -145,7 +145,7 @@ function SignupScreen() {
             </div>
             <div className="icon-action--box">
               <p>
-                Alreay have an account ? <a href="/">Login</a>
+                Alreay have an account ? <Link to="/login">Login</Link>
               </p>
               <div className="login-options--icons">
                 <i class="bx bxl-facebook-square"></i>
