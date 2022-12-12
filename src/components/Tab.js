@@ -13,10 +13,9 @@ import UserContext from "../context/userContext";
 import FriendContext from "../context/friendContext";
 import { client } from "../api/client";
 import { toast } from "react-toastify";
-function Tab() {
+function Tab({ posts, setPosts }) {
   const { setUser, user } = useContext(UserContext);
   const { friends } = useContext(FriendContext);
-  const [posts, setPosts] = useState([]);
 
   const [toggle, setToggle] = useState(2);
   const [inToggle, setInToggle] = useState(1);
@@ -125,7 +124,7 @@ function Tab() {
                   like={post.like}
                 />
               ))} */}
-              {posts.map((post) => (
+              {posts?.map((post) => (
                 <Post
                   key={post._id}
                   post={post}

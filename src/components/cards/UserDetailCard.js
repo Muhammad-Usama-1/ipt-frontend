@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Imageclient } from "../../api/client";
 import profileHeader from "../../assets/images/profile-header.jpg";
 import UserContext from "../../context/userContext";
-function UserDetailCard({ title = "Muhammad Usama", imageUri }) {
+function UserDetailCard({ title = "Muhammad Usama", imageUri, posts }) {
   const { setUser, user } = useContext(UserContext);
   // console.log("==> New file", files);
 
@@ -19,7 +19,7 @@ function UserDetailCard({ title = "Muhammad Usama", imageUri }) {
             alt=""
           />
 
-          <h4> {title || user.name} </h4>
+          <h4> {user.name || title} </h4>
         </div>
       </div>
       <div className="profile-user-detail"></div>

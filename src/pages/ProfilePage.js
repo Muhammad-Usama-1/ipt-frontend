@@ -6,11 +6,13 @@ import UserBanner from "../components/cards/UserDetailCard";
 
 import "../styles/ProfileScreenStyle.css";
 function ProfileScreen() {
+  const [posts, setPosts] = useState([]);
+
   // const [files, setFiles] = useState("");
   return (
     <Layout>
       <div className="content-profile">
-        <UserBanner />
+        <UserBanner posts={posts} />
         <Tab />
       </div>
     </Layout>
