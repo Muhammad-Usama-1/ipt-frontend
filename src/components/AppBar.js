@@ -65,7 +65,7 @@ export default function ButtonAppBar({ sidebar }) {
               <NotificationsNoneOutlinedIcon
                 style={{ marginLeft: 10, color: "#00b4cc" }}
               />
-              <Link to="/friends">
+              <Link to="/friend-request">
                 <PeopleOutlinedIcon
                   style={{ marginLeft: 10, color: "#00b4cc" }}
                 />
