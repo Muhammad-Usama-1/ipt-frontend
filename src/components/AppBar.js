@@ -71,7 +71,9 @@ export default function ButtonAppBar({ sidebar }) {
                 />
               </Link>
               <HomeOutlinedIcon style={{ marginLeft: 10, color: "#00b4cc" }} />
-              <UserCard title={`${user?.name || "user"}`} subTitle={false} />
+              <Link to={"/profile"}>
+                <UserCard title={`${user?.name || "user"}`} subTitle={false} />
+              </Link>
             </div>
           ) : (
             <LibraryBooksIcon
