@@ -15,32 +15,12 @@ import { client } from "../api/client";
 import { toast } from "react-toastify";
 function Tab({ posts, setPosts }) {
   const { setUser, user } = useContext(UserContext);
+  console.log("POSTS-->", posts);
   const { friends } = useContext(FriendContext);
-
+  // const [posts, setPosts] = useState([]);
   const [toggle, setToggle] = useState(2);
   const [inToggle, setInToggle] = useState(1);
-  const getUserPost = async () => {
-    try {
-      const { data } = await client.get("/posts", {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        // headers: { Authorization: `Bearer ${token}` },
-      });
-      console.log(data.data);
-      setPosts(data.data);
-      console.log(posts.length);
-      // setFriends(data.data);
 
-      // console.log(data);
-    } catch ({ response }) {
-      if (response && response.status >= 400 && response.status < 500) {
-        console.log(response.data.message);
-        toast.error(response.data.message);
-      }
-    }
-  };
-  useEffect(() => {
-    getUserPost();
-  }, []);
   return (
     <>
       <div className="tab-btns">
@@ -131,9 +111,10 @@ function Tab({ posts, setPosts }) {
                   // videoUrl={post.videoUrl}
                   // comments={post.comments}
                   // images={post.images}
-                  // user={post.user}
+                  user={post.user}
                   like={"134"}
                 />
+                // <h1>hello workplace</h1>
               ))}
             </div>
           </div>

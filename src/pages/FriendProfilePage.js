@@ -23,7 +23,7 @@ function FriendProfileScreen() {
     try {
       const { data } = await client.get(`/users/${params.userId}`);
       setFriendprofile(data.data.data);
-      console.log(data.data);
+      console.log(data.data.data);
     } catch ({ response }) {
       if (response && response.status >= 400 && response.status < 500) {
         console.log(response.data.message);
@@ -51,7 +51,11 @@ function FriendProfileScreen() {
   return (
     <Layout>
       <div className="content-friendprofile">
-        <UserBanner imageUri={friendprofile.photo} title={friendprofile.name} />
+        <UserBanner
+          posts={friendposts}
+          imageUri={friendprofile.photo}
+          title={friendprofile.name}
+        />
         <div className="timeline-box">
           <div>
             <UserAbout />
