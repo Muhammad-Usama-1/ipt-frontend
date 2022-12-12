@@ -30,7 +30,8 @@ function LoginScreen() {
       saveData(data.token);
       // console.log(token);
 
-      setUser(data.data);
+      setUser(data.data.data);
+      console.log(user);
       const { data2 } = await client.get("/users/friends", {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         // headers: { Authorization: `Bearer ${token}` },
