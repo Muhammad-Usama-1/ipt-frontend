@@ -177,7 +177,7 @@ function Tab({ posts, setPosts }) {
                 </div>
                 <div className="box">
                   <p> Mobile</p>
-                  <p>{user?.mobile || "No mobile no."}</p>
+                  <p>{user?.contact || "No mobile no."}</p>
                 </div>
                 <div className="box">
                   <p>Address</p>
@@ -190,11 +190,11 @@ function Tab({ posts, setPosts }) {
               <div>
                 <div className="box">
                   <p>Website</p>
-                  <p>usama-portfolio.netlify.app</p>
+                  <p> {user?.url} </p>
                 </div>
                 <div className="box">
                   <p>social </p>
-                  <p>www.github.com/muhammad-usama-1</p>
+                  <p> {user.social || "No Social"} </p>
                 </div>
               </div>
               {/* ---------------------- */}
