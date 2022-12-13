@@ -7,6 +7,7 @@ import LocalPostOfficeOutlinedIcon from "@mui/icons-material/LocalPostOfficeOutl
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
+import EditIcon from "@mui/icons-material/Edit";
 import Toolbar from "@mui/material/Toolbar";
 import { useMediaQuery } from "@mui/material";
 
@@ -44,7 +45,7 @@ export default function ButtonAppBar({ sidebar }) {
                 alt=""
               />
             </Link>
-            <p>SocialV</p>
+            <p>IPT</p>
 
             <MenuIcon
               style={{ marginLeft: 10 }}
@@ -62,9 +63,9 @@ export default function ButtonAppBar({ sidebar }) {
                   style={{ marginLeft: 10, color: "#00b4cc" }}
                 />
               </Link>
-              <NotificationsNoneOutlinedIcon
-                style={{ marginLeft: 10, color: "#00b4cc" }}
-              />
+              <Link to="/profile-edit">
+                <EditIcon style={{ marginLeft: 10, color: "#00b4cc" }} />
+              </Link>
               <Link to="/friend-request">
                 <PeopleOutlinedIcon
                   style={{ marginLeft: 10, color: "#00b4cc" }}
@@ -97,9 +98,9 @@ export default function ButtonAppBar({ sidebar }) {
               style={{ marginLeft: 10, color: "#00b4cc" }}
             />
           </Link>
-          <NotificationsNoneOutlinedIcon
-            style={{ marginLeft: 10, color: "#00b4cc" }}
-          />
+          <Link to="/profile-edit">
+            <EditIcon style={{ marginLeft: 10, color: "#00b4cc" }} />
+          </Link>
           <Link to="/friends">
             <PeopleOutlinedIcon style={{ marginLeft: 10, color: "#00b4cc" }} />
           </Link>
