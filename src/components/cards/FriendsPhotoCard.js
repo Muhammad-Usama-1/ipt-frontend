@@ -1,8 +1,12 @@
 import React, { useContext } from "react";
+import { Imageclient } from "../../api/client";
 import FriendContext from "../../context/friendContext";
+import UserContext from "../../context/userContext";
 
 function FriendsPhotoCard() {
   const { friends } = useContext(FriendContext);
+  console.log(friends);
+  const { user } = useContext(UserContext);
 
   return (
     <div className="timeline-event-photo">
@@ -11,15 +15,33 @@ function FriendsPhotoCard() {
         <button>Add friends</button>
       </div>
       <div className="timeline-event-photos">
-        {friends.map((el) => (
-          <div>
-            <img
-              src="https://templates.iqonic.design/socialv/bs5/react/build/static/media/05.803eaf62.jpg"
-              alt=""
-            />
-            <p className="small-text">{el?.to_user.name}</p>
-          </div>
-        ))}
+        {friends.map((el) => {
+          // const uri =
+          //   el?.to_user?._id == user._id
+          //     ? el?.from_user?.photo
+          //     : el?.to_user?.photo;
+          // console.log(uri);
+
+          return (
+            <div>
+              <img
+                className="small-friend--img-inprofile-page"
+                src={`${Imageclient}/users/${
+                  el?.to_user?._id == user._id
+                    ? el?.from_user?.photo
+                    : el?.to_user?.photo
+                }`}
+                // src="https://templates.iqonic.design/socialv/bs5/react/build/static/media/05.803eaf62.jpg"
+                alt=""
+              />
+              <p className="small-text">
+                {el?.to_user?._id == user._id
+                  ? el?.from_user?.name
+                  : el?.to_user?.name}
+              </p>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

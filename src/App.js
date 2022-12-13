@@ -124,3 +124,5 @@ export default App;
 // change password functionality
 // userfeed functionality
 // BUG frinend list error page
+
+// Photos of loged in user friend

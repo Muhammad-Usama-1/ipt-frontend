@@ -60,7 +60,7 @@ function FriendProfileScreen() {
           <div>
             <UserAbout />
             <PhotosCard />
-            <FriendsPhotoCard />
+            {/* <FriendsPhotoCard /> */}
           </div>
           <div>
             <div className="posts">
