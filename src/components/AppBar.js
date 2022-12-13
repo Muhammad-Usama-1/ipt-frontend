@@ -72,7 +72,11 @@ export default function ButtonAppBar({ sidebar }) {
               </Link>
               <HomeOutlinedIcon style={{ marginLeft: 10, color: "#00b4cc" }} />
               <Link to={"/profile"}>
-                <UserCard title={`${user?.name || "user"}`} subTitle={false} />
+                <UserCard
+                  image={user.photo}
+                  title={`${user?.name || "user"}`}
+                  subTitle={false}
+                />
               </Link>
             </div>
           ) : (
@@ -100,7 +104,7 @@ export default function ButtonAppBar({ sidebar }) {
             <PeopleOutlinedIcon style={{ marginLeft: 10, color: "#00b4cc" }} />
           </Link>
           <HomeOutlinedIcon style={{ marginLeft: 10, color: "#00b4cc" }} />
-          <UserCard title={user?.name} subTitle={false} />
+          <UserCard image={user.photo} title={user?.name} subTitle={false} />
         </div>
       )}
     </Box>
