@@ -89,7 +89,7 @@ function MessageBody() {
       </header>
       {/* <div id="id" className="chat-message-container--msgs"> */}
       <ScrollToBottom className="chat-message-container--msgs">
-        <button onClick={joinRoom}>join now</button>
+        {/* <button onClick={joinRoom}>join now</button> */}
 
         {messageList.map((el) => (
           <ChatBlock messageData={el} />
