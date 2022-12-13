@@ -19,6 +19,37 @@ function ProfileEditTab() {
   const navigate = useNavigate();
 
   const [toggle, setToggle] = useState(1);
+  // State for contact section
+  const [contact, setContact] = useState("");
+  const [social, setSocial] = useState("");
+  const [url, setUrl] = useState("");
+
+  // Function for updating contacts
+  const handleContactChange = async () => {
+    console.log(social, url, contact);
+
+    try {
+      // Call API for updating contact details of user
+      const { data } = await client.patch("/users/updateMeContact", {
+        social,
+        url,
+        contact,
+      });
+      // console.log(data.data.user);
+      // Update context of the user in all App
+      setUser(data.data.user);
+
+      // Notify Success message
+      toast.success("Thanks , you sucesfully updated your details info");
+    } catch ({ response }) {
+      // Catch unwanted 400 error
+      if (response && response.status >= 400 && response.status < 500) {
+        console.log(response.data.message);
+        toast.error(response.data.message);
+      }
+    }
+  };
+
   const [passInputs, setPassInputs] = useState({
     passwordCurrent: "",
     password: "",
@@ -380,21 +411,37 @@ function ProfileEditTab() {
               <div className="app-input-full">
                 <label htmlFor="contact">Contact Number:</label>
                 <input
-                  type="number"
+                  value={contact}
+                  onChange={(e) => setContact(e.target.value)}
                   name="contact"
+                  type="number"
                   placeholder="Contact Number"
                 />
               </div>
               <div className="app-input-full">
-                <label htmlFor="email">Email</label>
-                <input type="email" name="email" placeholder="Email Address" />
+                <label htmlFor="social">Social</label>
+                <input
+                  value={social}
+                  onChange={(e) => setSocial(e.target.value)}
+                  type="text"
+                  name="social"
+                  placeholder="Social Address"
+                />
               </div>
               <div className="app-input-full">
                 <label htmlFor="url">Url:</label>
-                <input type="url" name="url" placeholder="www.portfolio.com" />
+                <input
+                  type="url"
+                  name="url"
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                  placeholder="www.portfolio.com"
+                />
               </div>
               <div className="edit-form--btns">
-                <button className="primary-btn ">Submit</button>
+                <button onClick={handleContactChange} className="primary-btn ">
+                  Submit
+                </button>
                 <button className="primary-btn red-btn">Cancel</button>
               </div>
             </div>
