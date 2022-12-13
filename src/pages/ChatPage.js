@@ -35,7 +35,7 @@ function ChatPage() {
       <div className="chat-container">
         {/* User containers */}
         <div className="chat-user-container">
-          <UserCard title="Muhhamd Usama " subTitle="Graphic Designer" />
+          <UserCard title={user.name} subTitle="Nothing Now" />
           <div className="iq-search-bar device-search search-in-user-chat">
             <form action="#" className="">
               <a
