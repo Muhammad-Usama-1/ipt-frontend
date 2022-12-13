@@ -31,8 +31,29 @@ function ProfileScreen() {
       }
     }
   };
+
+  const getUserPhoto = async () => {
+    try {
+      const { data } = await client.get("/users/my-photo", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        // headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(data.data);
+      // setPosts(data.data);
+      // console.log(posts.length);
+      // setFriends(data.data);
+
+      // console.log(data);
+    } catch ({ response }) {
+      if (response && response.status >= 400 && response.status < 500) {
+        console.log(response.data.message);
+        toast.error(response.data.message);
+      }
+    }
+  };
   useEffect(() => {
     getUserPost();
+    getUserPhoto();
   }, []);
 
   // const [files, setFiles] = useState("");

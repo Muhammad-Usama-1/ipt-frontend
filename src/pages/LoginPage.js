@@ -19,6 +19,22 @@ function LoginScreen() {
 
   const navigate = useNavigate();
 
+  // const getMyFriend = async () => {
+  //   try {
+  //     const { data } = await client.get("/users/friends", {
+  //       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  //       // headers: { Authorization: `Bearer ${token}` },
+  //     });
+  //     console.log(data.data);
+  //     setFriends(data.data);
+  //   } catch ({ response }) {
+  //     if (response && response.status >= 400 && response.status < 500) {
+  //       console.log(response.data.message);
+  //       toast.error(response.data.message);
+  //     }
+  //   }
+  // };
+
   const doLogin = async (e) => {
     try {
       e.preventDefault();
@@ -28,9 +44,10 @@ function LoginScreen() {
       });
 
       saveData(data.token);
-      // console.log(token);
+      console.log(data.data);
+      setUser(data.data.user);
 
-      setUser(data.data.data);
+      navigate("/feed");
       console.log(user);
       const { data2 } = await client.get("/users/friends", {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -39,7 +56,7 @@ function LoginScreen() {
       console.log(data2.data);
       setFriends(data2.data);
       // navigate("/feed");
-      navigate("/feed");
+      // navigate("/feed");
     } catch ({ response }) {
       if (response && response.status >= 400 && response.status < 500) {
         console.log(response.data.message);

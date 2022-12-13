@@ -70,7 +70,7 @@ function FreindsSidebar({ fsidebar }) {
                     key={el?._id}
                     className="move-to-friend-profile"
                     to={`/friend-profile/${
-                      el?.to_user?._id == user._id
+                      el?.to_user?._id == user?._id
                         ? el?.from_user?._id
                         : el?.to_user?._id
                     }`}
@@ -78,7 +78,7 @@ function FreindsSidebar({ fsidebar }) {
                   >
                     <UserCard
                       title={
-                        el?.to_user?._id == user._id
+                        el?.to_user?._id == user?._id
                           ? el?.from_user?.name
                           : el?.to_user?.name
                       }
