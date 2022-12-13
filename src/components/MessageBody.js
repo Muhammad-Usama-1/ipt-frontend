@@ -11,15 +11,40 @@ import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ChatBlock from "../components/ChatBlock";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { Link, Outlet, useLocation } from "react-router-dom";
+import { client } from "../api/client";
 
 const socket = io.connect("http://localhost:3001");
 function MessageBody() {
   const location = useLocation();
-  console.log(location.state);
-  // const { from } = location.state
+  // console.log(location.state);
+  const { userId } = location.state;
+
   const [messageInput, setMessageInput] = useState("");
   const [room, setRoom] = useState(location.state.room);
+  const [newUser, setNewUser] = useState("");
+
   const [messageList, setMessageList] = useState([]);
+  const getAUser = async () => {
+    if (!userId) {
+      alert("User id is missing , i mean your friend id");
+      return;
+    }
+
+    try {
+      const { data } = await client.get(`/users/${userId} `, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+      console.log(data.data);
+      setNewUser(data.data.data);
+      // console.log(data.data);
+    } catch ({ response }) {
+      if (response && response.status >= 400 && response.status < 500) {
+        console.log(response?.data?.message);
+        // toast.error(response.data.message);
+      }
+    }
+  };
+
   // const [username, setUsername] = useState("");
   const { setUser, user } = useContext(UserContext);
   const joinRoom = () => {
@@ -56,11 +81,12 @@ function MessageBody() {
   };
   useEffect(() => {
     joinRoom();
+    getAUser();
   }, [location.state.name]);
   useEffect(() => {
     socket.on("receive_message", (data) => {
       console.log("new message arrived..");
-      console.log(data);
+      // console.log(data);
       setMessageList((list) => [...list, data]);
     });
   }, [socket]);
@@ -92,7 +118,7 @@ function MessageBody() {
         {/* <button onClick={joinRoom}>join now</button> */}
 
         {messageList.map((el) => (
-          <ChatBlock messageData={el} />
+          <ChatBlock newUser={newUser} messageData={el} />
         ))}
       </ScrollToBottom>
 

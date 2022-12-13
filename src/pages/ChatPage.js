@@ -68,6 +68,10 @@ function ChatPage() {
                   el?.to_user?._id == user._id
                     ? el?.from_user?.name
                     : el?.to_user?.name,
+                userId:
+                  el?.to_user?._id == user._id
+                    ? el?.from_user?._id
+                    : el?.to_user?._id,
                 room: el._id,
               }}
             >
