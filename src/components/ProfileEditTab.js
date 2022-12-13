@@ -68,6 +68,12 @@ function ProfileEditTab() {
       e.preventDefault();
       // Call API
       const { data } = await client.patch("/users/updateMe", form);
+      // console.log(data.data.user);
+      // Update context of the user in all App
+      setUser(data.data.user);
+
+      // Notify Success message
+      toast.success("Thanks , you sucesfully updated your details info");
     } catch ({ response }) {
       // Catch unwanted 400 error
       if (response && response.status >= 400 && response.status < 500) {
