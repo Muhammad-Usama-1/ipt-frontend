@@ -12,28 +12,12 @@ import FriendContext from "../context/friendContext";
 function LoginScreen() {
   const { saveData } = useTokenHook();
   const { setUser, user } = useContext(UserContext);
+  // State for login
   const [email, setEmail] = useState("areebakhter912@gmail.com");
   const [password, setPassword] = useState("pass1234");
   const { friends, setFriends } = useContext(FriendContext);
-  // const [token, setToken] = useState("");
 
   const navigate = useNavigate();
-
-  // const getMyFriend = async () => {
-  //   try {
-  //     const { data } = await client.get("/users/friends", {
-  //       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-  //       // headers: { Authorization: `Bearer ${token}` },
-  //     });
-  //     console.log(data.data);
-  //     setFriends(data.data);
-  //   } catch ({ response }) {
-  //     if (response && response.status >= 400 && response.status < 500) {
-  //       console.log(response.data.message);
-  //       toast.error(response.data.message);
-  //     }
-  //   }
-  // };
 
   const doLogin = async (e) => {
     try {
@@ -51,12 +35,9 @@ function LoginScreen() {
       console.log(user);
       const { data2 } = await client.get("/users/friends", {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        // headers: { Authorization: `Bearer ${token}` },
       });
-      console.log(data2.data);
+      // console.log(data2.data);
       setFriends(data2.data);
-      // navigate("/feed");
-      // navigate("/feed");
     } catch ({ response }) {
       if (response && response.status >= 400 && response.status < 500) {
         console.log(response.data.message);
@@ -66,9 +47,6 @@ function LoginScreen() {
   };
 
   return (
-    // user ? (
-    // <Navigate to="/feed" />
-    // ) : (
     <section className="sigin-page">
       <div className="container-inside">
         <div id="circle-small"></div>
