@@ -42,7 +42,9 @@ export default function CreatePostModal() {
       form.append("text", text);
 
       // make an api call to create a post in db
-      const { data } = await client.post("/posts", form);
+      const { data } = await client.post("/posts", form, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
       // show success message on post upload
       toast.success("Post Succecfully created");
       // Close the modal

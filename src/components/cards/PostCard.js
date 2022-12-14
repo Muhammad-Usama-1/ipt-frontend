@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import UserCard from "./UserCard";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { Avatar, Divider, Menu, MenuItem } from "@mui/material";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import LinkIcon from "@mui/icons-material/Link";
@@ -11,8 +12,10 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 
 import "../../styles/PostStyle.css";
 import UserContext from "../../context/userContext";
-import { Imageclient } from "../../api/client";
+import { client, Imageclient } from "../../api/client";
+import { toast } from "react-toastify";
 function Post({ videoUrl, images, comments, like, post }) {
+  console.log(post);
   const { setUser, user } = useContext(UserContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -21,6 +24,33 @@ function Post({ videoUrl, images, comments, like, post }) {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLike = async (postId) => {
+    console.log(postId);
+
+    // Call an API
+    if (post?.likes?.includes(user._id)) {
+      alert("you can not like twice");
+      return;
+    }
+    try {
+      const { data } = await client.post(
+        "/posts/like",
+        {
+          postId,
+        },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
+      console.log(data);
+    } catch ({ response }) {
+      if (response && response.status >= 400 && response.status < 500) {
+        console.log(response.data.message);
+        toast.error(response.data.message);
+      }
+    }
   };
   return (
     <div className="post">
@@ -147,8 +177,26 @@ function Post({ videoUrl, images, comments, like, post }) {
         className="post-reaction"
         style={{ display: "flex", alignItems: "center" }}
       >
-        <ThumbUpAltOutlinedIcon style={{ color: "#00b4cc", margin: 5 }} />
-        <span> {like} Likes </span>
+        {/* If already liked by the user filled icon */}
+        {post.likes?.includes(user?._id) ? (
+          <ThumbUpIcon
+            className="like-btn"
+            onClick = {()=> alert("Unlike feature is not implmented , its simple but i am affraid ")}
+            style={{ color: "#00b4cc", margin: 5 }}
+          />
+        ) : (
+          <ThumbUpAltOutlinedIcon
+            className="like-btn"
+            onClick={() => handleLike(post._id)}
+            style={{ color: "#00b4cc", margin: 5 }}
+          />
+        )}
+        {/* <ThumbUpAltOutlinedIcon
+          className="like-btn"
+          onClick={() => handleLike(post._id)}
+          style={{ color: "#00b4cc", margin: 5 }}
+        /> */}
+        <span> {post?.likes?.length || "zero"} Likes </span>
         <span>20 Comments</span>
         <div
           style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}
