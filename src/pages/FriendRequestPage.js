@@ -1,23 +1,18 @@
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from "react";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { client } from "../api/client";
+
 import Layout from "../components/Layout";
 import UserCard from "../components/cards/UserCard";
 import "../styles/FriendRequestStyle.css";
-import { client } from "../api/client";
-import { toast } from "react-toastify";
-import { useMemo } from "react";
-import { useParams } from "react-router-dom";
+// import { useMemo } from "react";
+// import { useParams } from "react-router-dom";
 
 function FriendRequestScreen() {
   // const abx = useParams();
   // console.log(abx);
   const [peopleUmayKnow, setPeopleUmayKnow] = useState([]);
   const [friendsRequest, setFriendsRequest] = useState([]);
-  // const [peoples, setPeoples] = useState([]);
   let tempPeopleUmayKnow;
   const getfriendsRequest = async () => {
     try {
@@ -39,7 +34,7 @@ function FriendRequestScreen() {
     const { data } = await client.get("/users", {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     });
-    console.log(data.data);
+    // console.log(data.data);
     setPeopleUmayKnow(data.data);
     // console.log("Friend rquest ", friendsRequest[0].from_user._id);
     const friendsRequestArray = friendsRequest.map((val) => val.from_user._id);
@@ -56,7 +51,6 @@ function FriendRequestScreen() {
   };
   // const
   const sendFriendRequest = async (id) => {
-    console.log("sending frined request..");
     try {
       const { data } = await client.post(
         "/users/addFriend",
@@ -75,7 +69,7 @@ function FriendRequestScreen() {
   };
 
   const confirmFriendRequest = async (id, name) => {
-    console.log("Will confirm friend request....", id);
+    // console.log("Will confirm friend request....", id);
     try {
       const { data } = await client.post("/users/confirmFriendsRequest", {
         id: id,
@@ -123,7 +117,7 @@ function FriendRequestScreen() {
             );
           })}
         </div>
-        {/* ----------------------------------------- */}
+
         {/*People U may know  section */}
 
         <div className="friend-request-container">

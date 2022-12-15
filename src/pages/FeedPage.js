@@ -1,12 +1,12 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useMediaQuery } from "@mui/material";
 
-import data from "../assets/posts.json";
+// import data from "../assets/posts.json";
 import Post from "../components/cards/PostCard";
 import Layout from "../components/Layout";
 import VerticalContent from "../components/VerticalContent";
 import ProtectedRoute from "../Router/ProtectedRoute";
-import UserContext from "../context/userContext";
+// import UserContext from "../context/userContext";
 import { client } from "../api/client";
 
 function FeedScreen({}) {
@@ -19,11 +19,6 @@ function FeedScreen({}) {
       });
       setFeeds(data.data);
       console.log(data.data);
-      // location.reload();
-      // setLoad(true);
-      // window.location.reload(true);
-      // Get Token from Localstorage
-      // if there is token get my profile detais and set it to user
     } catch (error) {
       console.log(error.response);
     }
@@ -31,7 +26,7 @@ function FeedScreen({}) {
   useEffect(() => {
     getFeeds();
   }, [0]);
-  const { setUser, user } = useContext(UserContext);
+  // const { setUser, user } = useContext(UserContext);
   // console.log("---------->", user);
   const matches990 = useMediaQuery("(min-width:990px)");
   const matches680 = useMediaQuery("(min-width:680px)");
@@ -45,15 +40,7 @@ function FeedScreen({}) {
   `}
         >
           <div className="posts">
-            {/* {data.map((post) => (
-              <Post
-                videoUrl={post.videoUrl}
-                comments={post.comments}
-                images={post.images}
-                user={post.user}
-                like={post.like}
-              />
-            ))} */}
+            {feeds.length === 0 ? <h1>Loading</h1> : null}
             {feeds.map((el) => (
               <Post
                 key={el._id}

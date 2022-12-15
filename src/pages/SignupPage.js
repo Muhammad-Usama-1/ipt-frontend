@@ -3,21 +3,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { client } from "../api/client";
 import UserContext from "../context/userContext";
-// import ".";
+
 import "../styles/AuthScreensStyle.css";
 // import "../styles/";
 
 function SignupScreen() {
-  const { setUser, user } = useContext(UserContext);
+  const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
   // Body data of registration
   const [fullName, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const navigate = useNavigate();
-  // const doLogin = () => {
-  //   navigate("/feed");
-  // };
   const doRegister = async (e) => {
     try {
       e.preventDefault();
@@ -27,11 +24,10 @@ function SignupScreen() {
         password,
         passwordConfirm: "pass1234",
       });
-      console.log(email, fullName, password);
-      console.log(data);
+
       localStorage.setItem("token", data.token);
       setUser(data.data.user);
-      console.log(user);
+      // console.log(user);
       // setUser(...user, data.data?.posts);
       navigate("/feed");
     } catch ({ response }) {

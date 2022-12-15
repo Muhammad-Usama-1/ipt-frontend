@@ -1,7 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 
-import data from "../assets/posts.json";
-import FriendsPhotoCard from "../components/cards/FriendsPhotoCard";
+// import data from "../assets/posts.json";
+// import FriendsPhotoCard from "../components/cards/FriendsPhotoCard";
 import Layout from "../components/Layout";
 import PhotosCard from "../components/cards/PhotosCard";
 import Post from "../components/cards/PostCard";
@@ -9,23 +11,18 @@ import UserAbout from "../components/cards/UserAboutCard";
 import UserBanner from "../components/cards/UserDetailCard";
 
 import "../styles/FriendProfileStyle.css";
-import { useParams } from "react-router-dom";
 import { client } from "../api/client";
-import { toast } from "react-toastify";
 
 function FriendProfileScreen() {
+  const params = useParams();
   const [friendprofile, setFriendprofile] = useState("");
   const [friendposts, setFriendposts] = useState([]);
-
-  const params = useParams();
-  // console.log(params); // 👉️ {userId: '4200'}
   const getFriendProfile = useCallback(async () => {
     try {
       const { data } = await client.get(`/users/${params.userId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       setFriendprofile(data.data.data);
-      console.log(data.data.data);
     } catch ({ response }) {
       if (response && response.status >= 400 && response.status < 500) {
         console.log(response.data.message);
@@ -40,7 +37,7 @@ function FriendProfileScreen() {
       });
       // setFriendprofile(data.data.data);
       setFriendposts(data.data);
-      console.log(data.data);
+      // console.log(data.data);
     } catch ({ response }) {
       if (response && response.status >= 400 && response.status < 500) {
         console.log(response.data.message);
@@ -68,16 +65,6 @@ function FriendProfileScreen() {
           </div>
           <div>
             <div className="posts">
-              {/* {data.map((post, i) => (
-                <Post
-                  key={i}
-                  videoUrl={post.videoUrl}
-                  comments={post.comments}
-                  images={post.images}
-                  user={post.user}
-                  like={post.like}
-                />
-              ))} */}
               {friendposts.map((post) => (
                 <Post
                   post={post}

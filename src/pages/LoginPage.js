@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
 
 import { Link, useNavigate } from "react-router-dom";
@@ -104,7 +104,6 @@ function LoginScreen() {
                 fontWeight: "bold",
                 fontSize: "40px",
                 color: "#3F414D",
-                // fontFamily: "Poppins",
               }}
             >
               Sign in

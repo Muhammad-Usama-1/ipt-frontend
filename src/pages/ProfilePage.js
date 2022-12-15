@@ -21,9 +21,9 @@ function ProfileScreen() {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         // headers: { Authorization: `Bearer ${token}` },
       });
-      console.log(data.data);
+      // console.log(data.data);
       setPosts(data.data);
-      console.log(posts.length);
+      // console.log(posts.length);
       // setFriends(data.data);
 
       // console.log(data);
@@ -41,13 +41,7 @@ function ProfileScreen() {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         // headers: { Authorization: `Bearer ${token}` },
       });
-      // console.log("PHTO-->", data.data.photos);
       setPhotos(data.data.photos);
-      // setPosts(data.data);
-      // console.log(posts.length);
-      // setFriends(data.data);
-
-      // console.log(data);
     } catch ({ response }) {
       if (response && response.status >= 400 && response.status < 500) {
         console.log(response.data.message);
@@ -59,8 +53,6 @@ function ProfileScreen() {
     getUserPost();
     getUserPhoto();
   }, []);
-
-  // const [files, setFiles] = useState("");
   return (
     <Layout>
       <div className="content-profile">

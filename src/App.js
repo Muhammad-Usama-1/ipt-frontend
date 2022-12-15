@@ -52,7 +52,7 @@ function App() {
       setUser(data.user);
       // If there is use then call myfrind API and set it to freinds context
 
-      console.log(user);
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
