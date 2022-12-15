@@ -13,7 +13,7 @@ function LoginScreen() {
   const { saveData } = useTokenHook();
   const { setUser, user } = useContext(UserContext);
   // State for login
-  const [email, setEmail] = useState("areebakhter912@gmail.com");
+  const [email, setEmail] = useState("google@gmail.com");
   const [password, setPassword] = useState("pass1234");
   const { friends, setFriends } = useContext(FriendContext);
 
@@ -28,16 +28,35 @@ function LoginScreen() {
       });
 
       saveData(data.token);
-      console.log(data.data);
       setUser(data.data.user);
-
       navigate("/feed");
-      console.log(user);
-      const { data2 } = await client.get("/users/friends", {
+      const freindsdata = await client.get("/users/friends", {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       // console.log(data2.data);
-      setFriends(data2.data);
+      // setFriends(freindsdata.data.data);
+      // console.log(freindsdata.data.data);
+      const arr = freindsdata.data.data.map((el) => {
+        if (el.from_user._id == user._id) {
+          el["friend_name"] = el?.from_user?.name;
+          el["friend_id"] = el?.from_user?._id;
+          el["friend_photo"] = el?.from_user?.photo;
+          delete el.from_user;
+          delete el.to_user;
+        } else {
+          el["friend_name"] = el?.to_user?.name;
+          el["friend_id"] = el?.to_user?._id;
+          el["friend_photo"] = el?.to_user?.photo;
+          delete el.from_user;
+          delete el.to_user;
+        }
+        return el;
+        // console.log(el.from_user);
+
+        // Doing experminet in friend-context branch
+      });
+      setFriends(arr);
+      console.log("ARR ", friends);
     } catch ({ response }) {
       if (response && response.status >= 400 && response.status < 500) {
         console.log(response.data.message);

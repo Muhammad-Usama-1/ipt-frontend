@@ -1,6 +1,8 @@
 import React from "react";
+import { Imageclient } from "../../api/client";
 
-function PhotosCard({ photo }) {
+function PhotosCard({ el, photo }) {
+  console.log("PHOTO", el);
   return (
     <div className="timeline-event-photo">
       <div className="live-event--title">
@@ -11,7 +13,9 @@ function PhotosCard({ photo }) {
         <div>
           <img
             className="small-friend--img-inprofile-page"
-            src="http://localhost:3002/img/users/default.jpg"
+            src={`${Imageclient}/posts/${photo || "default.jpg"}`}
+            // src="http://localhost:3002/img/users/default.jpg"            //
+
             alt=""
           />
         </div>

@@ -1,13 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Imageclient } from "../../api/client";
-import FriendContext from "../../context/friendContext";
-import UserContext from "../../context/userContext";
 
-function FriendsPhotoCard({ friends }) {
-  // const { friends } = useContext(FriendContext);
-  // console.log(friends);
-  const { user } = useContext(UserContext);
-
+function FriendsPhotoCard({ el }) {
   return (
     <div className="timeline-event-photo">
       <div className="live-event--title">
@@ -18,19 +12,10 @@ function FriendsPhotoCard({ friends }) {
         <div>
           <img
             className="small-friend--img-inprofile-page"
-            // src={`${Imageclient}/users/${
-            //   el?.to_user?._id == user._id
-            //     ? el?.from_user?.photo
-            //     : el?.to_user?.photo
-            // }`}
-            // src="https://templates.iqonic.design/socialv/bs5/react/build/static/media/05.803eaf62.jpg"
+            src={`${Imageclient}/users/${el.friend_photo}`}
             alt=""
           />
-          <p className="small-text">
-            {/* {el?.to_user?._id == user._id
-              ? el?.from_user?.name
-              : el?.to_user?.name} */}
-          </p>
+          <p className="small-text">{el.friend_name}</p>
         </div>
       </div>
     </div>

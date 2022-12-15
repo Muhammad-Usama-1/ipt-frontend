@@ -5,18 +5,14 @@ import StarsIcon from "@mui/icons-material/Stars";
 import UserCard from "./cards/UserCard";
 import "../styles/TabStyle.css";
 import Post from "./cards/PostCard";
-import data from "../assets/posts.json";
+// import data from "../assets/posts.json";
 import PhotosCard from "./cards/PhotosCard";
 // import FriendCard from "./FriendCard";
 import FriendsPhotoCard from "./cards/FriendsPhotoCard";
 import UserContext from "../context/userContext";
-import FriendContext from "../context/friendContext";
-import { client } from "../api/client";
-import { toast } from "react-toastify";
+// import FriendContext from "../context/friendContext";
 function Tab({ posts, photos, friends }) {
-  const { setUser, user } = useContext(UserContext);
-  console.log("FRIENDS-->", friends);
-  // const [posts, setPosts] = useState([]);
+  const { _, user } = useContext(UserContext);
   const [toggle, setToggle] = useState(2);
   const [inToggle, setInToggle] = useState(1);
 
@@ -89,11 +85,11 @@ function Tab({ posts, photos, friends }) {
                 </div>
               </div>
               {photos?.map((el) => (
-                <PhotosCard key={el._id} photo={el} />
+                <PhotosCard key={el._id} photo={el.photo} el={el} />
               ))}
               {/* =========== */}
               {friends?.map((el) => (
-                <FriendsPhotoCard friend={el} />
+                <FriendsPhotoCard el={el} />
               ))}
             </div>
             <div className="posts">
@@ -385,7 +381,7 @@ function Tab({ posts, photos, friends }) {
                   alt=""
                 />
                 <div>
-                  <p>{el?.to_user.name} </p>
+                  <p>{el?.friend_name} </p>
                   <span>15 Friends</span>
                 </div>
                 <button style={{ marginLeft: "auto" }}>Friends</button>

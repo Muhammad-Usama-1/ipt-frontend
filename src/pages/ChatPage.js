@@ -64,23 +64,14 @@ function ChatPage() {
             <Link
               to={`/chat/${el._id}`}
               state={{
-                name:
-                  el?.to_user?._id == user._id
-                    ? el?.from_user?.name
-                    : el?.to_user?.name,
-                userId:
-                  el?.to_user?._id == user._id
-                    ? el?.from_user?._id
-                    : el?.to_user?._id,
+                name: el.friend_name,
+                userId: el?.friend_id,
                 room: el._id,
               }}
             >
               <UserCard
-                title={
-                  el?.to_user?._id == user._id
-                    ? el?.from_user?.name
-                    : el?.to_user?.name
-                }
+                title={el.friend_name}
+                image={el?.friend_photo}
                 key={el._id}
               />
             </Link>

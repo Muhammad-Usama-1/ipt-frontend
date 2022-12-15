@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -64,7 +64,28 @@ function App() {
       const { data } = await client.get("/users/friends", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setFriends(data.data);
+
+      const arr = data.data.map((el) => {
+        if (el.from_user._id == user._id) {
+          el["friend_name"] = el?.from_user?.name;
+          el["friend_id"] = el?.from_user?._id;
+          el["friend_photo"] = el?.from_user?.photo;
+          delete el.from_user;
+          delete el.to_user;
+        } else {
+          el["friend_name"] = el?.to_user?.name;
+          el["friend_id"] = el?.to_user?._id;
+          el["friend_photo"] = el?.to_user?.photo;
+          delete el.from_user;
+          delete el.to_user;
+        }
+        return el;
+        // console.log(el.from_user);
+
+        // Doing experminet in friend-context branch
+      });
+      console.log(arr);
+      setFriends(arr);
 
       // console.log(data.data);
     } catch ({ response }) {

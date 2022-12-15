@@ -15,10 +15,10 @@ import UserContext from "../context/userContext";
 
 function FreindsSidebar({ fsidebar }) {
   // const { token } = useTokenHook();
-  const { _, setFriends: setFriendsC } = useContext(FriendContext);
-  const { user } = useContext(UserContext);
+  const { friends, _ } = useContext(FriendContext);
+  // const { user } = useContext(UserContext);
 
-  const [friends, setFriends] = useState([]);
+  // const [friends, setFriends] = useState([]);
 
   const matches1300 = useMediaQuery("(min-width:1300px)");
   const matches1500 = useMediaQuery("(min-width:1500px)");
@@ -31,23 +31,23 @@ function FreindsSidebar({ fsidebar }) {
     fsidebar.current.classList.toggle("close");
   };
 
-  const getFriendsList = useCallback(async () => {
-    try {
-      const { data } = await client.get("/users/friends", {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
+  // const getFriendsList = useCallback(async () => {
+  //   try {
+  //     const { data } = await client.get("/users/friends", {
+  //       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  //     });
 
-      setFriends(data.data);
-    } catch ({ response }) {
-      if (response && response.status >= 400 && response.status < 500) {
-        console.log(response.data.message);
-        toast.error(response.data.message);
-      }
-    }
-  }, []);
-  useEffect(() => {
-    getFriendsList();
-  }, [0]);
+  //     setFriends(data.data);
+  //   } catch ({ response }) {
+  //     if (response && response.status >= 400 && response.status < 500) {
+  //       console.log(response.data.message);
+  //       toast.error(response.data.message);
+  //     }
+  //   }
+  // }, []);
+  // useEffect(() => {
+  //   getFriendsList();
+  // }, [0]);
   return (
     <div style={{ display: "flex" }}>
       <div onClick={runFunc} className="fsidebar-mobile">
@@ -69,21 +69,12 @@ function FreindsSidebar({ fsidebar }) {
                   <Link
                     key={el?._id}
                     className="move-to-friend-profile"
-                    to={`/friend-profile/${
-                      el?.to_user?._id == user?._id
-                        ? el?.from_user?._id
-                        : el?.to_user?._id
-                    }`}
-                    // to={`/friend-profile/${el.to_user?._id}`}
+                    to={`/friend-profile/${el.friend_id}`}
                   >
                     <UserCard
-                      title={
-                        el?.to_user?._id == user?._id
-                          ? el?.from_user?.name
-                          : el?.to_user?.name
-                      }
+                      title={el.friend_name}
                       // title={el?.friends?.name}
-                      key={el?.to_user?._id}
+                      key={el?.friend_id}
                     />
                   </Link>
                 ))}

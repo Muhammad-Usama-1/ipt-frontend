@@ -19,29 +19,19 @@ function FriendCard({ el }) {
           <img
             className="friendlist-card-info--img"
             // Here default will be replace with actual IMAGEURI in future when we have real user in production
-            src={`${Imageclient}/users/default.jpg`}
+            src={`${Imageclient}/users/${el.friend_photo}`}
             // src="https://templates.iqonic.design/socialv/bs5/react/build/static/media/06.753c45f1.jpg"
             alt=""
           />
-          <Link
-            to={`/friend-profile/${
-              el?.to_user?._id == user._id
-                ? el?.from_user?._id
-                : el?.to_user?._id
-            }`}
-          >
+          <Link to={`/friend-profile/${el.friend_id}`}>
             <div className="card-info-box">
-              <p className="card-info--title">
-                {el?.to_user?._id == user._id
-                  ? el?.from_user?.name
-                  : el?.to_user?.name}
-              </p>
+              <p className="card-info--title">{el.friend_name}</p>
               <p>@developer</p>
               <p>Lorem ipsum dolor sit, amet consectetur adipisicing</p>
             </div>
           </Link>
         </div>
-        <button className="card-info-box--btn">Following</button>
+        <button className="card-info-box--btn">Following/Friends</button>
       </div>
     </div>
   );
