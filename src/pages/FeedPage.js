@@ -32,7 +32,7 @@ function FeedScreen({}) {
     getFeeds();
   }, [0]);
   const { setUser, user } = useContext(UserContext);
-  console.log("---------->", user);
+  // console.log("---------->", user);
   const matches990 = useMediaQuery("(min-width:990px)");
   const matches680 = useMediaQuery("(min-width:680px)");
 

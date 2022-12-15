@@ -75,7 +75,10 @@ function ProfileEditTab() {
       e.preventDefault();
       const { data } = await client.patch(
         "/users/updateMyPassword",
-        passInputs
+        passInputs,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
       );
 
       console.log(data.token);
@@ -98,7 +101,9 @@ function ProfileEditTab() {
     try {
       e.preventDefault();
       // Call API
-      const { data } = await client.patch("/users/updateMe", form);
+      const { data } = await client.patch("/users/updateMe", form, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
       // console.log(data.data.user);
       // Update context of the user in all App
       setUser(data.data.user);

@@ -29,9 +29,9 @@ function UserCard({
         {subTitle && <p className={cta && "primary-text"}>{subTitle}</p>}
         {createdAt && (
           <div className="user-comment" style={{ display: "flex" }}>
-            <span>Like </span>
+            {/* <span>Like </span>
             <span>Reply </span>
-            <span>Translate </span>
+            <span>Translate </span> */}
             <span>{createdAt} </span>
           </div>
         )}

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import UserCard from "./UserCard";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
@@ -18,6 +18,7 @@ function Post({ videoUrl, images, comments, like, post }) {
   console.log(post);
   const { setUser, user } = useContext(UserContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [comment, setComment] = useState();
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -51,6 +52,23 @@ function Post({ videoUrl, images, comments, like, post }) {
         toast.error(response.data.message);
       }
     }
+  };
+  const handleSubmitComment = async (e, postId) => {
+    e.preventDefault();
+    console.log(comment, postId);
+    try {
+      const { data } = await client.post(
+        "/posts/comment",
+        {
+          comment,
+          postId,
+        },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
+      setComment("");
+    } catch (error) {}
   };
   return (
     <div className="post">
@@ -181,7 +199,11 @@ function Post({ videoUrl, images, comments, like, post }) {
         {post.likes?.includes(user?._id) ? (
           <ThumbUpIcon
             className="like-btn"
-            onClick = {()=> alert("Unlike feature is not implmented , its simple but i am affraid ")}
+            onClick={() =>
+              alert(
+                "Unlike feature is not implmented , its simple but i am affraid "
+              )
+            }
             style={{ color: "#00b4cc", margin: 5 }}
           />
         ) : (
@@ -207,8 +229,13 @@ function Post({ videoUrl, images, comments, like, post }) {
       </div>
       <Divider />
 
-      <div className="post-comment">
+      <form
+        onSubmit={(e) => handleSubmitComment(e, post._id)}
+        className="post-comment"
+      >
         <input
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
           placeholder="Enter your comment..."
           type="text"
           className="post-comment__input"
@@ -218,15 +245,15 @@ function Post({ videoUrl, images, comments, like, post }) {
           <TagFacesIcon />
           <CameraAltIcon />
         </div>
-      </div>
+      </form>
       <div className="posted-comments">
-        {comments?.map((com, i) => (
+        {post.comments?.map((com, i) => (
           <UserCard
-            key={i}
-            title={com?.user?.name}
-            createdAt="5 min"
-            subTitle={com?.comment}
-            image={com?.user?.photo}
+            key={com._id}
+            title={com?.postedBy?.name}
+            createdAt={` ${new Date(com?.createdAt).getMinutes()} min `}
+            subTitle={com?.text}
+            // image={com?.user?.photo}
           />
         ))}
         {/* <UserCard toComment={true} /> */}

@@ -21,7 +21,9 @@ function FriendProfileScreen() {
   // console.log(params); // 👉️ {userId: '4200'}
   const getFriendProfile = useCallback(async () => {
     try {
-      const { data } = await client.get(`/users/${params.userId}`);
+      const { data } = await client.get(`/users/${params.userId}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
       setFriendprofile(data.data.data);
       console.log(data.data.data);
     } catch ({ response }) {
@@ -33,7 +35,9 @@ function FriendProfileScreen() {
   }, [params]);
   const getFriendPosts = useCallback(async () => {
     try {
-      const { data } = await client.get(`/posts/${params.userId}`);
+      const { data } = await client.get(`/posts/${params.userId}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
       // setFriendprofile(data.data.data);
       setFriendposts(data.data);
       console.log(data.data);
