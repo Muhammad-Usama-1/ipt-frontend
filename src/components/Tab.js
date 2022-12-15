@@ -13,10 +13,9 @@ import UserContext from "../context/userContext";
 import FriendContext from "../context/friendContext";
 import { client } from "../api/client";
 import { toast } from "react-toastify";
-function Tab({ posts, setPosts }) {
+function Tab({ posts, photos, friends }) {
   const { setUser, user } = useContext(UserContext);
-  console.log("POSTS-->", posts);
-  const { friends } = useContext(FriendContext);
+  console.log("FRIENDS-->", friends);
   // const [posts, setPosts] = useState([]);
   const [toggle, setToggle] = useState(2);
   const [inToggle, setInToggle] = useState(1);
@@ -89,9 +88,13 @@ function Tab({ posts, setPosts }) {
                   <p>january 24 2022</p>
                 </div>
               </div>
-              <PhotosCard />
+              {photos?.map((el) => (
+                <PhotosCard key={el._id} photo={el} />
+              ))}
               {/* =========== */}
-              <FriendsPhotoCard />
+              {friends?.map((el) => (
+                <FriendsPhotoCard friend={el} />
+              ))}
             </div>
             <div className="posts">
               {/* {data.map((post) => (

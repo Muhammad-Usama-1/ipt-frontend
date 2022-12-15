@@ -24,3 +24,7 @@ Generated using tree command in linux have to install
 ```bash
 sudo apt  install tree
 ```
+
+# BUG
+
+TODO : set frined context in one place

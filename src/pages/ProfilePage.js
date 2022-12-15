@@ -8,8 +8,11 @@ import "../styles/ProfileScreenStyle.css";
 import { client } from "../api/client";
 import { toast } from "react-toastify";
 import UserContext from "../context/userContext";
+import FriendContext from "../context/friendContext";
 function ProfileScreen() {
   const [posts, setPosts] = useState([]);
+  const [photos, setPhotos] = useState([]);
+  const { friends } = useContext(FriendContext);
   const { _, user } = useContext(UserContext);
 
   const getUserPost = async () => {
@@ -38,7 +41,8 @@ function ProfileScreen() {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         // headers: { Authorization: `Bearer ${token}` },
       });
-      console.log(data.data);
+      // console.log("PHTO-->", data.data.photos);
+      setPhotos(data.data.photos);
       // setPosts(data.data);
       // console.log(posts.length);
       // setFriends(data.data);
@@ -61,7 +65,7 @@ function ProfileScreen() {
     <Layout>
       <div className="content-profile">
         <UserBanner title={user.name} posts={posts} />
-        <Tab posts={posts} />
+        <Tab photos={photos} posts={posts} friends={friends} />
       </div>
     </Layout>
   );
