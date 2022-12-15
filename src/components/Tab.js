@@ -204,14 +204,18 @@ function Tab({ posts, setPosts }) {
                 <div className="box">
                   <p>Birth Date</p>
                   {/* <p>24 january</p> */}
-                  <p>
-                    {`${new Date(user?.dob).getDate()}  ${new Date(
-                      user?.dob
-                    )?.toLocaleDateString("default", {
-                      month: "long",
-                    })}                                   
-                  ` || "Not update"}
-                  </p>
+                  {user.dob ? (
+                    <p>
+                      {`${new Date(user?.dob)?.getDate()}  ${new Date(
+                        user?.dob
+                      )?.toLocaleDateString("default", {
+                        month: "long",
+                      })}                                   
+                  `}
+                    </p>
+                  ) : (
+                    <p> No update</p>
+                  )}
                 </div>
                 <div className="box">
                   <p>BirthYear</p>
