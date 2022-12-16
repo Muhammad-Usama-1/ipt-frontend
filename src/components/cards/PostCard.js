@@ -7,7 +7,7 @@ import { Avatar, Divider, Menu, MenuItem } from "@mui/material";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import LinkIcon from "@mui/icons-material/Link";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
-import EmededVideo from "../EmededVideo";
+// import EmededVideo from "../EmededVideo";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 
 import "../../styles/PostStyle.css";
@@ -55,7 +55,7 @@ function Post({ videoUrl, images, comments, like, post }) {
   };
   const handleSubmitComment = async (e, postId) => {
     e.preventDefault();
-    console.log(comment, postId);
+    // console.log(comment, postId);
     try {
       const { data } = await client.post(
         "/posts/comment",
@@ -67,6 +67,8 @@ function Post({ videoUrl, images, comments, like, post }) {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       );
+      console.log(data.data);
+      post.comments = data.data.comments;
       setComment("");
     } catch (error) {}
   };
