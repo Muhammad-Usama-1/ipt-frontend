@@ -65,7 +65,7 @@ function FreindsSidebar({ fsidebar }) {
           <div className="menu-bar">
             <div className="menu">
               <ul className="menu-links">
-                {friends.length === 0 ? <h1>Loading</h1> : null}
+                {friends.length == 0 ? <h1>Loading</h1> : null}
 
                 {friends?.map((el) => (
                   <Link

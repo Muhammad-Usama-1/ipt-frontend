@@ -18,7 +18,7 @@ function FeedScreen({}) {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       setFeeds(data.data);
-      console.log(data.data);
+      // console.log(data.data);
     } catch (error) {
       console.log(error.response);
     }

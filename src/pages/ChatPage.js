@@ -11,6 +11,7 @@ import { Link, Outlet } from "react-router-dom";
 import { client } from "../api/client";
 import { toast } from "react-toastify";
 import FriendContext from "../context/friendContext";
+import ProtectedRoute from "../Router/ProtectedRoute";
 // const socket = io.connect("http://localhost:3001");
 function ChatPage() {
   const { setUser, user } = useContext(UserContext);
@@ -31,7 +32,7 @@ function ChatPage() {
   // console.log(user);
 
   return (
-    <>
+    <ProtectedRoute>
       <div className="chat-container">
         {/* User containers */}
         <div className="chat-user-container">
@@ -86,7 +87,7 @@ function ChatPage() {
 
         <Outlet />
       </div>
-    </>
+    </ProtectedRoute>
   );
 }
 
