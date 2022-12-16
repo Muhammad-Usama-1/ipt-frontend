@@ -28,3 +28,4 @@ sudo apt  install tree
 # BUG
 
 TODO : set frined context in one place
+BUG : if there is no friend or post in db then it will always show loading in UI
