@@ -10,14 +10,21 @@ import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import EditIcon from "@mui/icons-material/Edit";
 import Toolbar from "@mui/material/Toolbar";
 import { useMediaQuery } from "@mui/material";
-
+import LogoutIcon from "@mui/icons-material/Logout";
 import SearchAppBar from "./AppSearchBar";
 import UserCard from "./cards/UserCard";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UserContext from "../context/userContext";
+import { useTokenHook } from "../hooks/UseToken";
 
 export default function ButtonAppBar({ sidebar }) {
+  const { removeData } = useTokenHook();
+  const navigate = useNavigate();
   const { setUser, user } = React.useContext(UserContext);
+  const handleLogout = () => {
+    removeData();
+    navigate("/login");
+  };
 
   const [open, setOpen] = React.useState(false);
   const matches1300 = useMediaQuery("(min-width:1300px)");
@@ -79,6 +86,7 @@ export default function ButtonAppBar({ sidebar }) {
                   subTitle={false}
                 />
               </Link>
+              <LogoutIcon className="cursor-pointer" onClick={handleLogout} />
             </div>
           ) : (
             <LibraryBooksIcon
@@ -106,6 +114,7 @@ export default function ButtonAppBar({ sidebar }) {
           </Link>
           <HomeOutlinedIcon style={{ marginLeft: 10, color: "#00b4cc" }} />
           <UserCard image={user?.photo} title={user?.name} subTitle={false} />
+          <LogoutIcon className="cursor-pointer" onClick={handleLogout} />
         </div>
       )}
     </Box>
