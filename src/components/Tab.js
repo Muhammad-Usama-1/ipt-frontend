@@ -10,6 +10,7 @@ import PhotosCard from "./cards/PhotosCard";
 // import FriendCard from "./FriendCard";
 import FriendsPhotoCard from "./cards/FriendsPhotoCard";
 import UserContext from "../context/userContext";
+import { Imageclient } from "../api/client";
 // import FriendContext from "../context/friendContext";
 function Tab({ posts, photos, friends }) {
   const { _, user } = useContext(UserContext);
@@ -398,10 +399,14 @@ function Tab({ posts, photos, friends }) {
             <button className="btn">your photos</button>
           </div>
           <div className="tab-photo-section">
-            <img
-              src="https://templates.iqonic.design/socialv/bs5/react/build/static/media/59.9cbeb915.jpg"
-              alt=""
-            />
+            {photos?.map((el) => (
+              // <PhotosCard key={el._id} photo={el.photo} el={el} />
+
+              <img
+                src={`${Imageclient}/posts/${el.photo || "default.jpg"}`}
+                alt="photo"
+              />
+            ))}
             <img
               src="https://templates.iqonic.design/socialv/bs5/react/build/static/media/54.d81af111.jpg"
               alt=""
