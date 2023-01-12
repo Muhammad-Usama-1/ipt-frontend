@@ -40,7 +40,8 @@ function FeedScreen({}) {
   `}
         >
           <div className="posts">
-            {feeds.length === 0 ? <h1>Loading</h1> : null}
+            {feeds.length === 0 ? <h1>No post in DB currently</h1> : null}
+            {!feeds ? <h1>Loading</h1> : null}
             {feeds.map((el) => (
               <Post
                 key={el._id}
