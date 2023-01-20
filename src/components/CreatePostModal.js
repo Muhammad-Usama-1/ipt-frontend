@@ -76,6 +76,7 @@ export default function CreatePostModal() {
           </Typography>
 
           <textarea
+            className="text-area-in-feed "
             value={text}
             onChange={(e) => setText(e.target.value)}
             cols={55}

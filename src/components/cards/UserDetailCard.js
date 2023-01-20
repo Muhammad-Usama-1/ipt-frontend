@@ -49,7 +49,7 @@ function UserDetailCard({ title = "Muhammad Usama", imageUri, posts }) {
         <div className="user-follower-info">
           <div>
             <p>Post</p>
-            <span> {posts.length || "Zero"} </span>
+            <span> {posts?.length || "Zero"} </span>
           </div>
           <div>
             <p>Followers</p>

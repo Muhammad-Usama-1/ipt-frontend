@@ -61,17 +61,17 @@ function Sidebar({ sidebar }) {
                 <span className="text nav-text">Friends List</span>
               </Link>
             </li>
-            <li onClick={() => handleNavigate("/")} className="nav-link">
+            {/* <li onClick={() => handleNavigate("/")} className="nav-link">
               <Link
                 className={loc.pathname === "/friendprofile" ? "active" : null}
                 to="/friendprofile"
               >
-                {/* <i className="bx bx-home-alt icon"></i> */}
+                
                 <i className="bx bx-user icon"></i>
 
                 <span className="text nav-text">Friends Profile</span>
               </Link>
-            </li>
+            </li> */}
             <li onClick={() => handleNavigate("/")} className="nav-link">
               <Link
                 className={loc.pathname === "/group" ? "active" : null}
@@ -85,13 +85,13 @@ function Sidebar({ sidebar }) {
             </li>
             <li onClick={() => handleNavigate("/")} className="nav-link">
               <Link
-                className={loc.pathname === "/profile-image" ? "active" : null}
-                to="/profile-image"
+                className={loc.pathname === "/profile-edit" ? "active" : null}
+                to="/profile-edit"
               >
                 {/* <i className="bx bx-home-alt icon"></i> */}
                 <i className="bx bx-image icon"></i>
 
-                <span className="text nav-text">Profile Image</span>
+                <span className="text nav-text">Profile Edit</span>
               </Link>
             </li>
             <li onClick={() => handleNavigate("/")} className="nav-link">
