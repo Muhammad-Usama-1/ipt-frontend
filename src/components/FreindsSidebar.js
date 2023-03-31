@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useMediaQuery } from "@mui/material";
 
@@ -9,16 +9,14 @@ import "../styles/FriendsSidebar.css";
 // import { client } from "../api/client";
 // import { useTokenHook } from "../hooks/UseToken";
 import FriendContext from "../context/friendContext";
-import { toast } from "react-toastify";
-import { client } from "../api/client";
-import UserContext from "../context/userContext";
+// import { toast } from "react-toastify";
+// import { client } from "../api/client";
+// import UserContext from "../context/userContext";
 
 function FreindsSidebar({ fsidebar }) {
   // const { token } = useTokenHook();
-  const { friends, _ } = useContext(FriendContext);
+  const { friends } = useContext(FriendContext);
   // const { user } = useContext(UserContext);
-
-  // const [friends, setFriends] = useState([]);
 
   const matches1300 = useMediaQuery("(min-width:1300px)");
   const matches1500 = useMediaQuery("(min-width:1500px)");
@@ -65,7 +63,7 @@ function FreindsSidebar({ fsidebar }) {
           <div className="menu-bar">
             <div className="menu">
               <ul className="menu-links">
-                {friends.length == 0 ? <h1>No friends</h1> : null}
+                {friends.length === 0 ? <h1>No friends</h1> : null}
                 {!friends ? <h1>Loading</h1> : null}
 
                 {friends?.map((el) => (

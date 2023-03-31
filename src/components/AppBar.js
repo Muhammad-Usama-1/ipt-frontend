@@ -20,7 +20,7 @@ import { useTokenHook } from "../hooks/UseToken";
 export default function ButtonAppBar({ sidebar }) {
   const { removeData } = useTokenHook();
   const navigate = useNavigate();
-  const { setUser, user } = React.useContext(UserContext);
+  const context = React.useContext(UserContext);
   const handleLogout = () => {
     removeData();
     navigate("/login");
@@ -81,8 +81,8 @@ export default function ButtonAppBar({ sidebar }) {
               <HomeOutlinedIcon style={{ marginLeft: 10, color: "#00b4cc" }} />
               <Link to={"/profile"}>
                 <UserCard
-                  image={user?.photo}
-                  title={`${user?.name || "user"}`}
+                  image={context.user?.photo}
+                  title={`${context.user?.name || "user"}`}
                   subTitle={false}
                 />
               </Link>
@@ -113,7 +113,11 @@ export default function ButtonAppBar({ sidebar }) {
             <PeopleOutlinedIcon style={{ marginLeft: 10, color: "#00b4cc" }} />
           </Link>
           <HomeOutlinedIcon style={{ marginLeft: 10, color: "#00b4cc" }} />
-          <UserCard image={user?.photo} title={user?.name} subTitle={false} />
+          <UserCard
+            image={context.user?.photo}
+            title={context.user?.name}
+            subTitle={false}
+          />
           <LogoutIcon className="cursor-pointer" onClick={handleLogout} />
         </div>
       )}

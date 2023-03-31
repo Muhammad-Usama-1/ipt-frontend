@@ -3,7 +3,7 @@ import { Imageclient } from "../../api/client";
 import profileHeader from "../../assets/images/profile-header.jpg";
 import UserContext from "../../context/userContext";
 function UserDetailCard({ title = "Muhammad Usama", imageUri, posts }) {
-  const { setUser, user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   // console.log("==> New file", files);
 
   // console.log(user);

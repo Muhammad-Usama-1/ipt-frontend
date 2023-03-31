@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useMediaQuery } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
@@ -10,8 +10,8 @@ import ProtectedRoute from "../Router/ProtectedRoute";
 // import UserContext from "../context/userContext";
 import { client } from "../api/client";
 import { Box } from "@mui/system";
-import AddIcon from "@mui/icons-material/Add";
-import Modal from "@mui/material/Modal";
+// import AddIcon from "@mui/icons-material/Add";
+// import Modal from "@mui/material/Modal";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -27,7 +27,7 @@ const style = {
   // boxShadow: 24,
   p: 4,
 };
-function FeedScreen({}) {
+function FeedScreen() {
   const navigate = useNavigate();
   const [feeds, setFeeds] = useState([]);
   const [files, setFiles] = useState("");
@@ -48,7 +48,7 @@ function FeedScreen({}) {
       form.append("text", text);
 
       // make an api call to create a post in db
-      const { data } = await client.post("/posts", form, {
+      await client.post("/posts", form, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       // show success message on post upload
@@ -79,7 +79,7 @@ function FeedScreen({}) {
   }, []);
   useEffect(() => {
     getFeeds();
-  }, [0]);
+  }, [getFeeds]);
   // const { setUser, user } = useContext(UserContext);
   // console.log("---------->", user);
   const matches990 = useMediaQuery("(min-width:990px)");

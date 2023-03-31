@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import StarsIcon from "@mui/icons-material/Stars";
 
@@ -13,7 +13,7 @@ import UserContext from "../context/userContext";
 import { Imageclient } from "../api/client";
 // import FriendContext from "../context/friendContext";
 function Tab({ posts, photos, friends }) {
-  const { _, user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [toggle, setToggle] = useState(2);
   const [inToggle, setInToggle] = useState(1);
 
@@ -404,7 +404,7 @@ function Tab({ posts, photos, friends }) {
 
               <img
                 src={`${Imageclient}/posts/${el.photo || "default.jpg"}`}
-                alt="photo"
+                alt="post"
               />
             ))}
             <img
