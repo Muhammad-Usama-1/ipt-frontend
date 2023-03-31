@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import UserCard from "../components/cards/UserCard";
 
 import "../styles/ChatStyle.css";
@@ -8,17 +8,17 @@ import UserContext from "../context/userContext";
 // import MessageBody from "../components/MessageBody";
 import { Link, Outlet } from "react-router-dom";
 // import FriendContext from "../context/friendContext";
-import { client } from "../api/client";
-import { toast } from "react-toastify";
+// import { client } from "../api/client";
+// import { toast } from "react-toastify";
 import FriendContext from "../context/friendContext";
 import ProtectedRoute from "../Router/ProtectedRoute";
 // const socket = io.connect("http://localhost:3001");
 function ChatPage() {
-  const { setUser, user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const { friends } = useContext(FriendContext);
 
   // const { friends, setFriends } = useState([]);
-  console.log(friends);
+  // console.log(friends);
 
   const [publicChannel, setPublicChannel] = useState([
     { name: "IPT", id: 1 },

@@ -11,9 +11,9 @@ import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ChatBlock from "../components/ChatBlock";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { client } from "../api/client";
+import { chatUrl, client } from "../api/client";
 
-const socket = io.connect("http://localhost:3002");
+const socket = io.connect(chatUrl);
 function MessageBody() {
   const location = useLocation();
   // console.log(location.state);

@@ -45,5 +45,5 @@ client.interceptors.response.use(null, (error) => {
 });
 // const Imageclient = "http://localhost:3001/img";
 const Imageclient = `${domainUrl}/img`;
-
-export { client, Imageclient, normalClient };
+const chatUrl = "http://localhost:3002";
+export { client, Imageclient, normalClient, chatUrl };
