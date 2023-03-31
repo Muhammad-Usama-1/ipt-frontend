@@ -6,21 +6,21 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LocalPostOfficeOutlinedIcon from "@mui/icons-material/LocalPostOfficeOutlined";
 // import MenuIcon from "@mui/icons-material/Menu";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+// import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ChatBlock from "../components/ChatBlock";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { client } from "../api/client";
 
-const socket = io.connect("http://localhost:3001");
+const socket = io.connect("http://localhost:3002");
 function MessageBody() {
   const location = useLocation();
   // console.log(location.state);
   const { userId } = location.state;
 
   const [messageInput, setMessageInput] = useState("");
-  const [room, setRoom] = useState(location.state.room);
+  const [room] = useState(location.state.room);
   const [newUser, setNewUser] = useState("");
 
   const [messageList, setMessageList] = useState([]);
@@ -34,7 +34,7 @@ function MessageBody() {
       const { data } = await client.get(`/users/${userId} `, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
-      console.log(data.data);
+      // console.log(data.data);
       setNewUser(data.data.data);
       // console.log(data.data);
     } catch ({ response }) {
@@ -46,7 +46,7 @@ function MessageBody() {
   };
 
   // const [username, setUsername] = useState("");
-  const { setUser, user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const joinRoom = () => {
     socket.emit("join_room", location.state.room);
   };
@@ -55,12 +55,12 @@ function MessageBody() {
   };
 
   const sendMessage = async (e) => {
-    console.log(user);
+    // console.log(user);
     // Save message to DB
 
     e.preventDefault();
     setMessageInput("");
-    console.log("Will send message");
+    // console.log("Will send message");
     //
     // if (messageInput !== "") {
     const messageData = {
@@ -85,7 +85,7 @@ function MessageBody() {
   }, [location.state.name]);
   useEffect(() => {
     socket.on("receive_message", (data) => {
-      console.log("new message arrived..");
+      // console.log("new message arrived..");
       // console.log(data);
       setMessageList((list) => [...list, data]);
     });

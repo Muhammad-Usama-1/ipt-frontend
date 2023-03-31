@@ -2,9 +2,9 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 // something devopsy here
-// const domainUrl = process.env.DOMAIN_URL || "http://localhost:3002";
-const domainUrl =
-  process.env.DOMAIN_URL || "https://long-erin-duckling-cuff.cyclic.app";
+const domainUrl = process.env.DOMAIN_URL || "http://localhost:3002";
+// const domainUrl =
+//   process.env.DOMAIN_URL || "https://long-erin-duckling-cuff.cyclic.app";
 
 const client = axios.create({
   withCredentials: true,
