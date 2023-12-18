@@ -13,8 +13,8 @@ function LoginScreen() {
   const { saveData } = useTokenHook();
   const { setUser, user } = useContext(UserContext);
   // State for login
-  const [email, setEmail] = useState("google@gmail.com");
-  const [password, setPassword] = useState("pass1234");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { friends, setFriends } = useContext(FriendContext);
 
   const navigate = useNavigate();
